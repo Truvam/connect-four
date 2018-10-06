@@ -1,0 +1,16 @@
+body {
+    font-family: sans-serif;
+    background-color: white;
+    color: black;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+}
+
+.validator {
+    position: absolute;
+    bottom: 0px;
+    left: 5px;
+}
