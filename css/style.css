@@ -1,12 +1,35 @@
 body {
     font-family: sans-serif;
-    background-color: white;
+    background-color: #FFFFFF;
     color: black;
 }
 
-h1 {
-    color: black;
+.header {
+    color: white;
     text-align: center;
+    background-color: #455a64;
+    font-size: 45px;
+    width: 320px;
+    height: 60px;
+    margin: 0 auto;
+    box-shadow: 0 5px 5px #BDBDBD;
+}
+
+.board {
+    background-color: #cfd8dc;
+    width: 300px;
+    height: 100px;
+    padding: 350px;
+    margin: 0 auto;
+    border-radius: 3.2em;
+}
+
+.row1 {
+    float: left;
+    width: 800px;
+    height: 100px;
+    border-radius: 5em;
+    background-color: red;
 }
 
 .validator {
