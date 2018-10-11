@@ -18,12 +18,18 @@ h4 {
     margin-top: 34px;
 }
 
+h5 {
+    margin-bottom: 5px;
+}
+
 .board {
     background-color: #BDBDBD;
     display: inline-block;
     border-radius: 3.2em;
     margin-top: 34px;
     opacity: 0.2;
+    width: 800px;
+    overflow-x: auto;
 }
 
 .cell {
@@ -39,9 +45,9 @@ h4 {
 .configuration {
     background-color: #455a64;
     width: 200px;
-    height: 200px;
+    height: 300px;
     padding: 20px;
-    position: absolute;
+    position: absolute; 
     top: 0px;
     bottom: 0px;
     left: 0px;
@@ -51,31 +57,162 @@ h4 {
     box-shadow: 0 5px 5px #BDBDBD;
 }
 
+.config-size {
+    margin-top: -20px;
+    color: white;
+}
+
+.config-size input{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+}
+
+.config-size p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    display: inline-block;
+    width: 10px;
+}
+
+.config-opponent {
+    color: white;
+}
+
+.opponent-option {
+    display: inline-block;
+}
+
+.opponent-option  input{
+    display: none;
+}
+
+.opponent-option label {
+  display: block;
+  width: 50px;
+  height: 25px;
+  background-color: #666;
+  border: solid 2px #ccc;
+  border-radius: 8px;
+  color: #999;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.opponent-option input:checked+label {
+  color: #fff;
+  background-color: #593f6b;
+  border-color: #fff;
+  cursor: default;
+}
+
+.config-first {
+    color: white;
+}
+
+.first-option {
+    display: inline-block;
+}
+
+.first-option input{
+    display: none;
+}
+
+.first-option label {
+  display: block;
+  width: 50px;
+  height: 25px;
+  background-color: #666;
+  border: solid 2px #ccc;
+  border-radius: 8px;
+  color: #999;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.first-option input:checked+label {
+  color: #fff;
+  background-color: #593f6b;
+  border-color: #fff;
+  cursor: default;
+}
+
+.config-dif {
+    color: white;
+}
+
+.dif-level {
+    display: inline-block;
+}
+
+.dif-level input {
+  display: none;
+}
+
+.dif-level label {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: #666;
+  border: solid 2px #ccc;
+  border-radius: 8px;
+  color: #999;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.dif-level input:checked+label {
+  color: #fff;
+  background-color: #593f6b;
+  border-color: #fff;
+  cursor: default;
+}
+
 .button {
     background-color: white;
     color: black;
+    border: none;
     border-radius: 3.2em;
-    padding:20px 40px;
+    padding: 20px 20px;
     text-decoration: none;
-    line-height: 200px;
+    height: 40px;
+    line-height: 1px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 100%;
+    outline: none;
+    margin-top: 10px;
 }
 
-.button:hover{
-    box-shadow: 0px 10px 10px rgba(0,0,0,0.2);
-    transform : translateY(-3px);
+.cmd-btn {
+    display: inline-block;
+    background-color: #455a64; 
+    color: white;
+    font-size: 80%;
+    margin-top: 0.8px;
 }
 
-.button:active{
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+.button:hover {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+}
+
+.button:active {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     transform: translateY(-1px);
 }
 
-
-
 .validator {
-    position: fixed;
+    /* needs to be fixed*/
+    position: absolute;
     bottom: 0px;
     right: 0px;
     width: 900px;
+    margin-top: 10px;
     text-align: right;
 }
