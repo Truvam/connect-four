@@ -44,18 +44,22 @@ h5 {
 
 .cell-red {
     background-color: salmon;
+    opacity: 0.5;
 }
 
 .cell-blue {
-    background-color: slateblue;
+    background-color: #303f9f;
+    opacity: 0.5;
 }
 
 .cell.red {
-    background-color: red;
+    background-color: #ff5252;
+    opacity: 1;
 }
 
 .cell.blue {
-    background-color: blue;
+    background-color: #303f9f;
+    opacity: 1;
 }
 
 .configuration {
@@ -221,7 +225,7 @@ h5 {
     background-color: #455a64;
     color: white;
     font-size: 80%;
-    margin-top: 0.8px;
+    margin-top: 10px;
 }
 
 .button:hover {

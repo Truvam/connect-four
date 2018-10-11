@@ -6,6 +6,7 @@
   <title>Connect Four</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
   <script src="js/main.js"></script>
+  <script src="js/board.js"></script>
 </head>
 
 <body>
@@ -49,7 +50,6 @@
         <label for="first-ai" id="s-label">AI</label>
       </div>
     </div>
-    <!-- only appears if AI was selected before -->
     <div class="config-dif">
       <h5>Difficulty</h5>
       <div class="dif-level">
@@ -94,7 +94,7 @@
         Buttons at the bottom of the board all in one line (only appear after new game starts)
       -->
 
-    <button class="button cmd-btn btn-start">START GAME</button>
+    <button class="button cmd-btn btn-start" onclick="start_game()">START GAME</button>
     <button class="button cmd-btn btn-opponent">OPPONENT FIRST</button>
     <button class="button cmd-btn btn-config" onclick="show_config()">CONFIGURATION</button>
     <button class="button cmd-btn btn-rules" onclick="show_rules()">RULES</button>
