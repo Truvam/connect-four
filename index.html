@@ -10,63 +10,7 @@
 
 <body>
   <h4>Connect Four</h4>
-  <div class="board">
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-    <div class="row">
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-      <div class="cell"></div>
-    </div>
-
-  </div>
+  <div class="board"></div>
 
   <div class="configuration">
     <!--
@@ -78,56 +22,56 @@
         https://codepen.io/lonekorean/project/editor/ZGpqVX
     -->
     <div class="config-size">
-        <h5>Board Size</h5>
-        <input id="size-w" type="text" name="config-size" value="7">
-        <p> x </p>
-        <input id="size-h" type="text" name="config-size" value="6">
+      <h5>Board Size</h5>
+      <input id="size-w" type="text" name="config-size" value="7">
+      <p> x </p>
+      <input id="size-h" type="text" name="config-size" value="6">
     </div>
     <div class="config-opponent">
-        <h5>Opponent</h5>
-        <div class="opponent-option">
-          <input id="player" type="radio" name="config-opponent" value="Player">
-          <label for="player">Player</label>
-        </div>
-        <div class="opponent-option">
-          <input id="ai" type="radio" name="config-opponent" value="AI" checked>
-          <label for="ai">AI</label>
-        </div>
+      <h5>Opponent</h5>
+      <div class="opponent-option">
+        <input id="player" type="radio" name="config-opponent" value="Player">
+        <label for="player">Player</label>
+      </div>
+      <div class="opponent-option">
+        <input id="ai" type="radio" name="config-opponent" value="AI" checked>
+        <label for="ai">AI</label>
+      </div>
     </div>
     <div class="config-first">
-        <h5>First Player</h5>
-        <div class="first-option">
-          <input id="first-player" type="radio" name="first-option" value="Player">
-          <label for="first-player">Player</label>
-        </div>
-        <div class="first-option">
-          <input id="first-ai" type="radio" name="first-option" value="AI" checked>
-          <label for="first-ai">AI</label>
-        </div>
+      <h5>First Player</h5>
+      <div class="first-option">
+        <input id="first-player" type="radio" name="first-option" value="Player">
+        <label for="first-player">Player</label>
+      </div>
+      <div class="first-option">
+        <input id="first-ai" type="radio" name="first-option" value="AI" checked>
+        <label for="first-ai">AI</label>
+      </div>
     </div>
     <!-- only appears if AI was selected before -->
     <div class="config-dif">
-        <h5>Difficulty</h5>
-        <div class="dif-level">
-          <input id="dif1" type="radio" name="config-dif" value="1">
-          <label for="dif1">1</label>
-        </div>
-        <div class="dif-level">
-          <input id="dif2" type="radio" name="config-dif" value="2">
-          <label for="dif2">2</label>
-        </div>
-        <div class="dif-level">
-          <input id="dif4" type="radio" name="config-dif" value="4" checked>
-          <label for="dif4">4</label>
-        </div>
-        <div class="dif-level">
-          <input id="dif6" type="radio" name="config-dif" value="6">
-          <label for="dif6">6</label>
-        </div>
-        <div class="dif-level">
-          <input id="dif8" type="radio" name="config-dif" value="8">
-          <label for="dif8">8</label>
-        </div>
+      <h5>Difficulty</h5>
+      <div class="dif-level">
+        <input id="dif1" type="radio" name="config-dif" value="1">
+        <label for="dif1">1</label>
+      </div>
+      <div class="dif-level">
+        <input id="dif2" type="radio" name="config-dif" value="2">
+        <label for="dif2">2</label>
+      </div>
+      <div class="dif-level">
+        <input id="dif4" type="radio" name="config-dif" value="4" checked>
+        <label for="dif4">4</label>
+      </div>
+      <div class="dif-level">
+        <input id="dif6" type="radio" name="config-dif" value="6">
+        <label for="dif6">6</label>
+      </div>
+      <div class="dif-level">
+        <input id="dif8" type="radio" name="config-dif" value="8">
+        <label for="dif8">8</label>
+      </div>
     </div>
     <button class="button config-btn">START GAME</button>
   </div>
@@ -143,13 +87,13 @@
 
         Buttons at the bottom of the board all in one line (only appear after new game starts)
       -->
-      
-      <button  class="button cmd-btn btn-start">START GAME</button>
-      <button  class="button cmd-btn btn-opponent">OPPONENT FIRST</button>
-      <button  class="button cmd-btn btn-config">CONFIGURATION</button>
-      <button  class="button cmd-btn btn-rules">RULES</button>
-      <button  class="button cmd-btn btn-leaderboard">LEADERBOARD</button>
-      <button  class="button cmd-btn btn-quit">QUIT</button>
+
+    <button class="button cmd-btn btn-start">START GAME</button>
+    <button class="button cmd-btn btn-opponent">OPPONENT FIRST</button>
+    <button class="button cmd-btn btn-config">CONFIGURATION</button>
+    <button class="button cmd-btn btn-rules">RULES</button>
+    <button class="button cmd-btn btn-leaderboard">LEADERBOARD</button>
+    <button class="button cmd-btn btn-quit">QUIT</button>
   </div>
 
   <div class="validator">
