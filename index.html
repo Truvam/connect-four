@@ -30,23 +30,23 @@
     <div class="config-opponent">
       <h5>Opponent</h5>
       <div class="opponent-option">
-        <input id="player" type="radio" name="config-opponent" value="Player">
+        <input id="player" type="radio" name="config-opponent" value="Player" onclick="select_opponent(id)">
         <label for="player">Player</label>
       </div>
       <div class="opponent-option">
-        <input id="ai" type="radio" name="config-opponent" value="AI" checked>
+        <input id="ai" type="radio" name="config-opponent" value="AI" checked onclick="select_opponent(id)">
         <label for="ai">AI</label>
       </div>
     </div>
     <div class="config-first">
       <h5>First Player</h5>
       <div class="first-option">
-        <input id="first-player" type="radio" name="first-option" value="Player">
-        <label for="first-player">Player</label>
+        <input id="first-player" type="radio" name="first-option" value="Player" checked>
+        <label for="first-player" id="f-label">Player</label>
       </div>
       <div class="first-option">
-        <input id="first-ai" type="radio" name="first-option" value="AI" checked>
-        <label for="first-ai">AI</label>
+        <input id="first-ai" type="radio" name="first-option" value="AI">
+        <label for="first-ai" id="s-label">AI</label>
       </div>
     </div>
     <!-- only appears if AI was selected before -->
@@ -73,9 +73,15 @@
         <label for="dif8">8</label>
       </div>
     </div>
-    <button class="button config-btn">START GAME</button>
+    <button class="button config-btn" onclick="start_game()">START GAME</button>
   </div>
-
+  <div class="configuration rules">
+    <h5>Objective:</h5>
+    <p>The objective s is to make a straight line of four pieces; the line can be vertical, horizontal or diagonal.</p>
+  </div>
+  <div class="configuration leaderboard">
+    <h5>Leaderboard:</h5>
+  </div>
   <div class="commands">
     <!--
         A maior parte da interação será com o tabuleiro. No entanto, existirão alguma comandos que serão desencadeados por outras interações
@@ -90,9 +96,9 @@
 
     <button class="button cmd-btn btn-start">START GAME</button>
     <button class="button cmd-btn btn-opponent">OPPONENT FIRST</button>
-    <button class="button cmd-btn btn-config">CONFIGURATION</button>
-    <button class="button cmd-btn btn-rules">RULES</button>
-    <button class="button cmd-btn btn-leaderboard">LEADERBOARD</button>
+    <button class="button cmd-btn btn-config" onclick="show_config()">CONFIGURATION</button>
+    <button class="button cmd-btn btn-rules" onclick="show_rules()">RULES</button>
+    <button class="button cmd-btn btn-leaderboard" onclick="show_leaderboard()">LEADERBOARD</button>
     <button class="button cmd-btn btn-quit">QUIT</button>
   </div>
 
