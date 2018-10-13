@@ -6,7 +6,11 @@ class Board {
         this.first_player;
         this.second_player;
         this.current_player;
-        this.matrix = Array.from({ length: height }, () => Array.from({ length: width }, () => "_"));
+        this.matrix = Array.from({
+            length: height
+        }, () => Array.from({
+            length: width
+        }, () => "_"));
         this.column = 0;
         this.create_board();
     }
@@ -43,9 +47,7 @@ class Board {
         function play_ai(board) {
             const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
             let col = alpha_beta(board, depth, -Infinity, Infinity);
-            console.log("Column: ", col);
             const empty_cell = find_empty_cell(col);
-            console.log("ROW: ", empty_cell.dataset.row);
             board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
             empty_cell.classList.add('blue');
             empty_cell.classList.remove('empty');
@@ -60,7 +62,6 @@ class Board {
         board.addEventListener('mouseover', (event) => {
             if (event.target.className.includes('cell empty')) {
                 const column = event.target.dataset.column;
-                //console.log("col", column);
                 const empty_cell = find_empty_cell(column);
                 if (empty_cell != null) {
                     if (this.current_player == this.first_player) {
@@ -106,13 +107,13 @@ class Board {
                 }
 
                 if (empty_cell != null) {
-                    console.log(empty_cell.classList);
                     empty_cell.classList.remove('empty');
                     if (this.current_player == this.first_player) {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'r';
                         empty_cell.classList.add('red');
                         this.current_player = this.second_player;
-                        play_ai(this);
+                        if(document.getElementById('ai').checked)
+                            play_ai(this);
                     } else {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
                         empty_cell.classList.add('blue');
@@ -128,10 +129,10 @@ function is_draw(board) {
     let cont = 0;
     let empty = "_";
     for (let i = 0; i < board.height; i++) {
-        for(let j = 0; j < board.width; j++) {
-            if(board.matrix[i][j] != empty)
+        for (let j = 0; j < board.width; j++) {
+            if (board.matrix[i][j] != empty)
                 cont += 1;
-            if(cont == 42)
+            if (cont == 42)
                 return true;
         }
     }
@@ -155,7 +156,7 @@ function value_aux(cont_r, cont_b) {
 }
 
 function utility(board) {
-    if(is_draw(board)) return 0;
+    if (is_draw(board)) return 0;
     let cont_r = 0;
     let cont_b = 0;
     let sum = 0;
