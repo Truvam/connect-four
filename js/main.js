@@ -29,6 +29,7 @@ function start_game() {
         board.second_player = document.getElementById('second-player').value;
         console.log("First: ", board.first_player);
     } else {
+        console.log("First: ", board.first_player);
         board.first_player = document.getElementById('second-player').value;
         board.second_player = document.getElementById('first-player').value;
     }
