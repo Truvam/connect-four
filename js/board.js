@@ -3,6 +3,9 @@ class Board {
         this.width = width;
         this.height = height;
         this.class = _class;
+        this.first_player;
+        this.second_player;
+        this.current_player;
         this.create_board();
     }
 
@@ -42,7 +45,7 @@ class Board {
                 console.log("col", column);
                 const empty_cell = find_empty_cell(column);
                 if (empty_cell != null) {
-                    if (document.getElementById('first-player').checked) {
+                    if (this.current_player == this.first_player) {
                         empty_cell.classList.add('cell-red');
                     } else {
                         empty_cell.classList.add('cell-blue');
@@ -53,7 +56,7 @@ class Board {
 
         board.addEventListener('mouseout', (event) => {
             if (event.target.className.includes('cell')) {
-                if (document.getElementById('first-player').checked) {
+                if (this.current_player == this.first_player) {
                     const cells = document.querySelectorAll('.cell-red')[0];
                     if (cells != null) {
                         cells.classList.remove('cell-red');
@@ -74,12 +77,12 @@ class Board {
                 const empty_cell = find_empty_cell(column);
                 if (empty_cell != null) {
                     empty_cell.classList.remove('empty');
-                    if (document.getElementById('first-player').checked) {
+                    if (this.current_player == this.first_player) {
                         empty_cell.classList.add('red');
-                        document.getElementById('first-ai').checked = true;
+                        this.current_player = this.second_player;
                     } else {
                         empty_cell.classList.add('blue');
-                        document.getElementById('first-player').checked = true;
+                        this.current_player = this.first_player;
                     }
                 }
             }
