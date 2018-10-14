@@ -2,7 +2,23 @@ window.onload = function () {
     const width = document.getElementById('size-w').value;
     const height = document.getElementById('size-h').value;
     new Board(width, height, 'board');
+    document.getElementsByClassName("configuration")[0].style.display = "none";
+    document.getElementsByClassName("board")[0].style.display = "none";
+    document.getElementsByClassName("logout")[0].style.display = "none";
+    document.getElementsByClassName("val-html")[0].style.display = "none";
+    document.getElementsByClassName("val-css")[0].style.display = "none";
 };
+
+function login() {
+    const username = document.getElementById('user').value;
+    document.getElementsByClassName("welcome")[0].style.display = "none";
+    document.getElementsByClassName("board")[0].style.display = "inline-block";
+    show_config();
+    document.getElementsByClassName("user-logout")[0].innerHTML = username;
+    document.getElementsByClassName("logout")[0].style.display = "unset";
+    document.getElementsByClassName("val-html")[0].style.display = "unset";
+    document.getElementsByClassName("val-css")[0].style.display = "unset";
+}
 
 function select_opponent(id) {
     if (id == "ai") {
