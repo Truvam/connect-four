@@ -1,12 +1,38 @@
 window.onload = function () {
     const width = document.getElementById('size-w').value;
     const height = document.getElementById('size-h').value;
-    new Board(width, height, 'board');
-    document.getElementsByClassName("configuration")[0].style.display = "none";
-    document.getElementsByClassName("board")[0].style.display = "none";
-    document.getElementsByClassName("logout")[0].style.display = "none";
-    document.getElementsByClassName("val-html")[0].style.display = "none";
-    document.getElementsByClassName("val-css")[0].style.display = "none";
+    if(localStorage.getItem('quit-game')) {
+        document.getElementsByClassName("welcome")[0].style.display = "none";
+        localStorage.removeItem('quit-game');
+    }
+    else if(localStorage.getItem('start-game')) {
+        document.getElementsByClassName("welcome")[0].style.display = "none";
+        document.getElementsByClassName("configuration")[0].style.display = "none";
+        localStorage.removeItem('start-game');
+        const width = localStorage.getItem('width');
+        const height = localStorage.getItem('height');
+        document.getElementById('size-w').value = width;
+        document.getElementById('size-h').value = height;
+        const board = new Board(width, height, 'board');
+        if (document.getElementById('first-player').checked) {
+            board.first_player = document.getElementById('first-player').value;
+            board.second_player = document.getElementById('second-player').value;
+        } else {
+            board.first_player = document.getElementById('second-player').value;
+            board.second_player = document.getElementById('first-player').value;
+        }
+        board.current_player = board.first_player;
+        document.getElementsByClassName("board")[0].style.opacity = "1";
+        board.event_listener();
+    }
+    else {
+        new Board(width, height, 'board');
+        document.getElementsByClassName("configuration")[0].style.display = "none";
+        document.getElementsByClassName("board")[0].style.display = "none";
+        document.getElementsByClassName("logout")[0].style.display = "none";
+        document.getElementsByClassName("val-html")[0].style.display = "none";
+        document.getElementsByClassName("val-css")[0].style.display = "none";
+    }
 };
 
 function login() {
@@ -35,23 +61,12 @@ function select_opponent(id) {
 }
 
 function start_game() {
-    document.getElementsByClassName("configuration")[0].style.display = "none";
-    document.getElementsByClassName("board")[0].innerHTML = "";
     const width = document.getElementById('size-w').value;
     const height = document.getElementById('size-h').value;
-    const board = new Board(width, height, 'board');
-    if (document.getElementById('first-player').checked) {
-        board.first_player = document.getElementById('first-player').value;
-        board.second_player = document.getElementById('second-player').value;
-        console.log("First: ", board.first_player);
-    } else {
-        console.log("First: ", board.first_player);
-        board.first_player = document.getElementById('second-player').value;
-        board.second_player = document.getElementById('first-player').value;
-    }
-    board.current_player = board.first_player;
-    document.getElementsByClassName("board")[0].style.opacity = "1";
-    board.event_listener();
+    localStorage.setItem('start-game', 'true');
+    localStorage.setItem('width', width);
+    localStorage.setItem('height', height);
+    window.location.reload();
 }
 
 function show_config() {
@@ -80,4 +95,10 @@ function show_leaderboard() {
     } else {
         document.getElementsByClassName("leaderboard")[0].style.display = "unset";
     }
+}
+
+function quit_game() {
+    alert("Are you sure?");
+    localStorage.setItem('quit-game', 'true');
+    window.location.reload();
 }
