@@ -16,26 +16,31 @@ window.onload = function () {
         select_opponent(opponent);
         const first_player = localStorage.getItem('first_player');
         document.getElementById(first_player).checked = true;
-        const diff = localStorage.getItem('diff');
-        document.getElementById(diff).checked = true;
         document.getElementById('size-w').value = width;
         document.getElementById('size-h').value = height;
         const board = new Board(width, height, 'board');
-        if (document.getElementById('first-player').checked) {
-            board.first_player = document.getElementById('first-player').value;
-            board.second_player = document.getElementById('second-player').value;
-            set_current_player(board.first_player, "red");
-        } else {
-            if (document.getElementById('ai').checked) {
+        if (opponent == "ai") {
+            const diff = localStorage.getItem('diff');
+            document.getElementById(diff).checked = true;
+            if (document.getElementById('first-player').checked) {
+                board.first_player = document.getElementById('first-player').value;
+                board.second_player = document.getElementById('second-player').value;
+                set_current_player(board.first_player, "red");
+            } else {
                 board.first_player = document.getElementById('first-player').value;
                 board.second_player = document.getElementById('second-player').value;
                 set_current_player(board.second_player, "blue");
                 play_ai(board);
+            }
+        } else {
+            if (document.getElementById('first-player').checked) {
+                board.first_player = document.getElementById('first-player').value;
+                board.second_player = document.getElementById('second-player').value;
+                set_current_player(board.first_player, "red");
             } else {
                 board.first_player = document.getElementById('second-player').value;
                 board.second_player = document.getElementById('first-player').value;
                 set_current_player(board.first_player, "red");
-                console.log("HERE");
             }
         }
         board.current_player = board.first_player;
@@ -107,8 +112,12 @@ function start_game() {
         localStorage.setItem('diff', diff);
     } else {
         localStorage.setItem('opponent', 'player');
+        if (document.getElementById('first-player').checked) {
+            localStorage.setItem('first_player', 'first-player');
+        } else {
+            localStorage.setItem('first_player', 'second-player');
+        }
     }
-
     window.location.reload();
 }
 
@@ -151,8 +160,9 @@ function set_current_player(current_player, color) {
     document.getElementsByClassName("current-player")[0].innerHTML = current_player;
     if (color == "red") {
         document.getElementsByClassName("current-player")[0].style.backgroundColor = "#ff5252";
+        console.log("Player 1: ", current_player);
     } else {
         document.getElementsByClassName("current-player")[0].style.backgroundColor = "#303f9f";
-        console.log("AI!");
+        console.log("Player 2: ", current_player);
     }
 }
