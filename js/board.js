@@ -34,31 +34,6 @@ class Board {
     event_listener() {
         const board = document.getElementsByClassName(this.class)[0];
 
-        function find_empty_cell(column) {
-            const cells = document.querySelectorAll('[data-column="' + column + '"]');
-            for (let i = cells.length - 1; i >= 0; i--) {
-                if (cells[i].className.includes('empty')) {
-                    return cells[i];
-                }
-            }
-            return null;
-        }
-
-        function play_ai(board) {
-            const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
-            let col = alpha_beta(board, depth, -Infinity, Infinity);
-            const empty_cell = find_empty_cell(col);
-            board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
-            empty_cell.classList.add('blue');
-            empty_cell.classList.remove('empty');
-            const result = utility(board);
-            if (result == 512 || result == -512) {
-                alert(board.current_player + ' won!');
-                return;
-            }
-            board.current_player = board.first_player;
-        }
-
         board.addEventListener('mouseover', (event) => {
             if (event.target.className.includes('cell empty')) {
                 const column = event.target.dataset.column;
@@ -94,30 +69,25 @@ class Board {
                 const column = event.target.dataset.column;
                 let empty_cell = find_empty_cell(column);
 
-                const result = utility(this);
-                if (result == 512 || result == -512) {
-                    alert(this.current_player + ' won!');
-                    /*document.getElementsByClassName("board")[0].innerHTML = "";
-                    document.getElementsByClassName("board")[0].style.opacity = "0.2";
-                    const width = document.getElementById('size-w').value;
-                    const height = document.getElementById('size-h').value;
-                    new Board(width, height, 'board');
-                    show_config();*/
-                    return;
-                }
-
                 if (empty_cell != null) {
                     empty_cell.classList.remove('empty');
                     if (this.current_player == this.first_player) {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'r';
                         empty_cell.classList.add('red');
+                        const result = utility(this);
+                        who_won(this.current_player, result);
                         this.current_player = this.second_player;
-                        if(document.getElementById('ai').checked)
+                        set_current_player(this.current_player, "blue");
+                        if (document.getElementById('ai').checked)
                             play_ai(this);
+
                     } else {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
                         empty_cell.classList.add('blue');
+                        const result = utility(this);
+                        who_won(this.current_player, result);
                         this.current_player = this.first_player;
+                        set_current_player(this.current_player, "red");
                     }
                 }
             }
@@ -137,6 +107,37 @@ function is_draw(board) {
         }
     }
     return false;
+}
+
+function find_empty_cell(column) {
+    const cells = document.querySelectorAll('[data-column="' + column + '"]');
+    for (let i = cells.length - 1; i >= 0; i--) {
+        if (cells[i].className.includes('empty')) {
+            return cells[i];
+        }
+    }
+    return null;
+}
+
+function who_won(current_player, result) {
+    if (result == 512 || result == -512) {
+        alert(current_player + ' won!');
+        quit_game();
+    }
+}
+
+function play_ai(board) {
+    const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
+    let col = alpha_beta(board, depth, -Infinity, Infinity);
+    const empty_cell = find_empty_cell(col);
+    board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
+    empty_cell.classList.add('blue');
+    empty_cell.classList.remove('empty');
+    console.log(board.current_player);
+    const result = utility(board);
+    who_won(board.current_player, result);
+    board.current_player = board.first_player;
+    set_current_player(board.current_player, "red");
 }
 
 function value_aux(cont_r, cont_b) {
