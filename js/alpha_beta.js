@@ -44,7 +44,7 @@ function min_value(board, depth, alpha, beta) {
 
 function max_value(board, depth, alpha, beta) {
     const value = utility(board);
-    if (depth == 0 | value == -512 || value == 512 || is_draw(board)) 
+    if (depth == 0 | value == -512 || value == 512 || is_draw(board))
         return value;
     let v = -Infinity;
     board.current_player = board.second_player;
@@ -60,12 +60,11 @@ function max_value(board, depth, alpha, beta) {
 
 function place_piece(board, column) {
     const empty = "_";
-    for(let i = board.height - 1; i >= 0; i--) {
-        if(board.matrix[i][column] == empty) {
-            if(board.current_player == board.first_player) {
+    for (let i = board.height - 1; i >= 0; i--) {
+        if (board.matrix[i][column] == empty) {
+            if (board.current_player == board.first_player) {
                 board.matrix[i][column] = "r";
-            }
-            else {
+            } else {
                 board.matrix[i][column] = "b";
             }
             return;
