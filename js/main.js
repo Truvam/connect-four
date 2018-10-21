@@ -121,10 +121,17 @@ function start_game() {
     window.location.reload();
 }
 
+function close_panels() {
+    document.getElementsByClassName("configuration")[0].style.display = "none";
+    document.getElementsByClassName("rules")[0].style.display = "none";
+    document.getElementsByClassName("leaderboard")[0].style.display = "none";
+    document.getElementsByClassName("quit")[0].style.display = "none";
+}
+
 function show_config() {
     const display = document.getElementsByClassName("configuration")[0].style.display;
     if (display == "unset") {
-        document.getElementsByClassName("configuration")[0].style.display = "none";
+        close_panels();
     } else {
         document.getElementsByClassName("configuration")[0].style.display = "unset";
     }
@@ -134,7 +141,7 @@ function show_config() {
 function show_rules() {
     const display = document.getElementsByClassName("rules")[0].style.display;
     if (display == "unset") {
-        document.getElementsByClassName("rules")[0].style.display = "none";
+        close_panels();
     } else {
         document.getElementsByClassName("rules")[0].style.display = "unset";
     }
@@ -143,13 +150,14 @@ function show_rules() {
 function show_leaderboard() {
     const display = document.getElementsByClassName("leaderboard")[0].style.display;
     if (display == "unset") {
-        document.getElementsByClassName("leaderboard")[0].style.display = "none";
+        close_panels();
     } else {
         document.getElementsByClassName("leaderboard")[0].style.display = "unset";
     }
 }
 
 function quit_game(op) {
+    close_panels();
     if(op == "yes") {
         localStorage.setItem('quit-game', 'true');
         window.location.reload();
