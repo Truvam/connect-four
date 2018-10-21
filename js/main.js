@@ -156,13 +156,18 @@ function quit_game() {
 }
 
 function set_current_player(current_player, color) {
-    document.getElementsByClassName("current-player")[0].style.display = "unset";
-    document.getElementsByClassName("current-player")[0].innerHTML = current_player;
-    if (color == "red") {
-        document.getElementsByClassName("current-player")[0].style.backgroundColor = "#ff5252";
-        console.log("Player 1: ", current_player);
-    } else {
-        document.getElementsByClassName("current-player")[0].style.backgroundColor = "#303f9f";
-        console.log("Player 2: ", current_player);
+    if(document.getElementsByClassName("who-won")[0].style.display == "unset") {
+        document.getElementsByClassName("current-player")[0].style.display = "none";
+    }
+    else {
+        document.getElementsByClassName("current-player")[0].style.display = "unset";
+        document.getElementsByClassName("current-player")[0].innerHTML = current_player;
+        if (color == "red") {
+            document.getElementsByClassName("current-player")[0].style.backgroundColor = "#ff5252";
+            console.log("Player 1: ", current_player);
+        } else {
+            document.getElementsByClassName("current-player")[0].style.backgroundColor = "#303f9f";
+            console.log("Player 2: ", current_player);
+        }
     }
 }

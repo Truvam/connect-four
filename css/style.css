@@ -398,3 +398,20 @@ h5 {
     margin-left: 35px;
     bottom: 0;
 }
+
+.who-won {
+    background-color: #4facfe;
+    width: 200px;
+    height: 50px;
+    padding: 20px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    color: white;
+}

@@ -74,8 +74,7 @@ class Board {
                     if (this.current_player == this.first_player) {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'r';
                         empty_cell.classList.add('red');
-                        const result = utility(this);
-                        who_won(this.current_player, result);
+                        who_won(this);
                         this.current_player = this.second_player;
                         set_current_player(this.current_player, "blue");
                         if (document.getElementById('ai').checked)
@@ -84,8 +83,7 @@ class Board {
                     } else {
                         this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
                         empty_cell.classList.add('blue');
-                        const result = utility(this);
-                        who_won(this.current_player, result);
+                        who_won(this);
                         this.current_player = this.first_player;
                         set_current_player(this.current_player, "red");
                     }
@@ -119,10 +117,16 @@ function find_empty_cell(column) {
     return null;
 }
 
-function who_won(current_player, result) {
+function who_won(board) {
+    const result = utility(board);
     if (result == 512 || result == -512) {
-        alert(current_player + ' won!');
-        quit_game();
+        document.getElementsByClassName("who-won")[0].innerHTML = board.current_player + " won!";
+        document.getElementsByClassName("who-won")[0].style.display = "unset";
+        document.getElementsByClassName("board")[0].style.opacity = "0.2";
+        const elements = document.getElementsByClassName('cell');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('empty');
+        }
     }
 }
 
@@ -130,14 +134,15 @@ function play_ai(board) {
     const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
     let col = alpha_beta(board, depth, -Infinity, Infinity);
     const empty_cell = find_empty_cell(col);
-    board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
-    empty_cell.classList.add('blue');
-    empty_cell.classList.remove('empty');
-    console.log(board.current_player);
-    const result = utility(board);
-    who_won(board.current_player, result);
-    board.current_player = board.first_player;
-    set_current_player(board.current_player, "red");
+    if(empty_cell != null) {
+        board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
+        empty_cell.classList.add('blue');
+        empty_cell.classList.remove('empty');
+        console.log(board.current_player);
+        who_won(board);
+        board.current_player = board.first_player;
+        set_current_player(board.current_player, "red");
+    }
 }
 
 function value_aux(cont_r, cont_b) {
