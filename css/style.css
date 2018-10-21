@@ -167,6 +167,11 @@ h5 {
     display: none;
 }
 
+.configuration.rules p{
+    margin-top: 50px;
+    text-align: justify;
+}
+
 .configuration.leaderboard {
     display: none;
 }
@@ -428,9 +433,9 @@ td {
 
 .who-won {
     background-color: #4facfe;
-    width: 200px;
+    width: 220px;
     height: 50px;
-    padding: 20px;
+    padding: 10px;
     position: absolute;
     top: 0px;
     bottom: 0px;
@@ -441,6 +446,8 @@ td {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     display: none;
     color: white;
+    font-size: 35px;
+    overflow: hidden;
 }
 
 .quit {
