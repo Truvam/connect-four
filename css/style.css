@@ -159,11 +159,30 @@ h5 {
 
 .configuration.rules {
     display: none;
-    text-align: justify;
 }
 
 .configuration.leaderboard {
     display: none;
+}
+
+.table.leaderboard {
+    margin: 0 auto;
+}
+.table.leaderboard th{
+    padding: 9px;
+    border-bottom: 2px solid white;
+    text-align: center;
+    
+}
+
+h3 {
+    margin-bottom: 3px;
+    float: left;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
 }
 
 .config-size {

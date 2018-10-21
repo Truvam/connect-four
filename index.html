@@ -104,24 +104,19 @@
     <button class="button config-btn" onclick="start_game()">START GAME</button>
   </div>
   <div class="configuration rules">
-    <h5>Objective:</h5>
+    <h3>Objective:</h3>
     <p>The objective is to make a straight line of four pieces; the line can be vertical, horizontal or diagonal.</p>
   </div>
   <div class="configuration leaderboard">
-    <h5>Leaderboard:</h5>
+    <h3>Leaderboard:</h3>
+    <table id="table" class="table leaderboard">
+      <tr>
+        <th>Name</th>
+        <th>Victory</th>
+      </tr>
+    </table>
   </div>
   <div class="commands">
-    <!--
-        A maior parte da interação será com o tabuleiro. No entanto, existirão alguma comandos que serão desencadeados por outras interações
-          - Visualizar as instruções
-          - Iniciar o jogo com as configurações correntes
-          - Permitir que o adversário comesse em primeiro lugar
-          - Desistir do jogo
-          - Visualizar as classificações
-
-        Buttons at the bottom of the board all in one line (only appear after new game starts)
-      -->
-
     <button class="button cmd-btn btn-start" onclick="start_game()">START GAME</button>
     <button class="button cmd-btn btn-opponent">OPPONENT FIRST</button>
     <button class="button cmd-btn btn-config" onclick="show_config()">CONFIGURATION</button>

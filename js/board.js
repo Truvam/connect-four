@@ -120,6 +120,7 @@ function find_empty_cell(column) {
 function who_won(board) {
     const result = utility(board);
     if (result == 512 || result == -512) {
+        insert_leaderboard(board.current_player);
         document.getElementsByClassName("who-won")[0].innerHTML = board.current_player + " won!";
         document.getElementsByClassName("who-won")[0].style.display = "unset";
         document.getElementsByClassName("board")[0].style.opacity = "0.2";

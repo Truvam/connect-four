@@ -48,6 +48,8 @@ window.onload = function () {
         board.event_listener();
     } else {
         new Board(width, height, 'board');
+        let leaderboard = {};
+        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
         document.getElementsByClassName("configuration")[0].style.display = "none";
         document.getElementsByClassName("board")[0].style.display = "none";
         document.getElementsByClassName("logout")[0].style.display = "none";
@@ -185,4 +187,33 @@ function set_current_player(current_player, color) {
             console.log("Player 2: ", current_player);
         }
     }
+}
+
+function insert_leaderboard(player) {
+    let leaderboard = localStorage.getItem('leaderboard');
+    leaderboard = JSON.parse(leaderboard)
+    console.log("Lead: ", leaderboard);
+    const table = document.getElementById("table");
+    if(!leaderboard.hasOwnProperty(player)) {
+        leaderboard[player] = 1
+        console.log(leaderboard[player]);
+    }
+    else {
+        leaderboard[player]++;
+    }
+    
+    for(var key in leaderboard) {
+        const tr = document.createElement('tr');
+        let td = document.createElement('td');
+        td.className = 'name ' + key;
+        td.innerHTML = key;
+        tr.appendChild(td);
+        td = document.createElement('td');
+        td.className = 'victory ' + key;
+        td.innerHTML = leaderboard[key];
+        tr.appendChild(td);
+        table.appendChild(tr);
+    }
+
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 }
