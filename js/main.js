@@ -135,6 +135,7 @@ function show_config() {
     if (display == "unset") {
         close_panels();
     } else {
+        close_panels();
         document.getElementsByClassName("configuration")[0].style.display = "unset";
     }
 
@@ -145,6 +146,7 @@ function show_rules() {
     if (display == "unset") {
         close_panels();
     } else {
+        close_panels();
         document.getElementsByClassName("rules")[0].style.display = "unset";
     }
 }
@@ -154,6 +156,7 @@ function show_leaderboard() {
     if (display == "unset") {
         close_panels();
     } else {
+        close_panels();
         document.getElementsByClassName("leaderboard")[0].style.display = "unset";
     }
 }
