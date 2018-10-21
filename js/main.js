@@ -86,14 +86,14 @@ function select_opponent(id) {
         document.getElementById("first-player").value = "Player";
         document.getElementById("second-player").value = "AI";
         document.getElementsByClassName("config-dif")[0].style.display = "unset";
-        document.getElementsByClassName("button")[0].style.margin = "10px 0 0";
+        document.getElementsByClassName("config-btn")[0].style.margin = "20px 0 0";
     } else {
         document.getElementById("f-label").innerText = "Player 1";
         document.getElementById("s-label").innerText = "Player 2";
         document.getElementById("first-player").value = "Player 1";
         document.getElementById("second-player").value = "Player 2";
         document.getElementsByClassName("config-dif")[0].style.display = "none";
-        document.getElementsByClassName("button")[0].style.margin = "50px 0 0";
+        document.getElementsByClassName("config-btn")[0].style.margin = "50px 0 0";
     }
 }
 

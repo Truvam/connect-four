@@ -42,7 +42,8 @@ class Board {
                     if (this.current_player == this.first_player) {
                         empty_cell.classList.add('cell-red');
                     } else {
-                        empty_cell.classList.add('cell-blue');
+                        if (!document.getElementById('ai').checked)
+                            empty_cell.classList.add('cell-blue');
                     }
                 }
             }
@@ -132,18 +133,21 @@ function who_won(board) {
 }
 
 function play_ai(board) {
-    const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
-    let col = alpha_beta(board, depth, -Infinity, Infinity);
-    const empty_cell = find_empty_cell(col);
-    if(empty_cell != null) {
-        board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
-        empty_cell.classList.add('blue');
-        empty_cell.classList.remove('empty');
-        console.log(board.current_player);
-        who_won(board);
-        board.current_player = board.first_player;
-        set_current_player(board.current_player, "red");
-    }
+    setTimeout(() => {
+        const depth = parseInt(document.querySelectorAll('input[name="config-dif"]:checked')[0].value);
+        let col = alpha_beta(board, depth, -Infinity, Infinity);
+        const empty_cell = find_empty_cell(col);
+        if(empty_cell != null) {
+            board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
+            empty_cell.classList.add('blue');
+            empty_cell.classList.remove('empty');
+            console.log(board.current_player);
+            who_won(board);
+            board.current_player = board.first_player;
+            set_current_player(board.current_player, "red");
+        }
+    }, 300);
+    
 }
 
 function value_aux(cont_r, cont_b) {

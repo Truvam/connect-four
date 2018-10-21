@@ -131,11 +131,13 @@ h5 {
 }
 
 .cell.red {
+    animation: fall-animation 500ms;
     background-color: #ff5252;
     opacity: 1;
 }
 
 .cell.blue {
+    animation: fall-animation 500ms;
     background-color: #303f9f;
     opacity: 1;
 }
@@ -157,6 +159,10 @@ h5 {
     color: white;
 }
 
+.configuration div {
+    margin-bottom: -4px;
+}
+
 .configuration.rules {
     display: none;
 }
@@ -168,11 +174,12 @@ h5 {
 .table.leaderboard {
     margin: 0 auto;
 }
-.table.leaderboard th{
+
+.table.leaderboard th {
     padding: 9px;
     border-bottom: 2px solid white;
     text-align: center;
-    
+
 }
 
 h3 {
@@ -315,7 +322,7 @@ td {
     text-align: center;
     font-size: 100%;
     outline: none;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .cmd-btn {
@@ -404,7 +411,8 @@ td {
 }
 
 .current-player {
-    color: white;;
+    color: white;
+    ;
     text-align: center;
     font-size: 35px;
     width: 200px;
@@ -412,7 +420,7 @@ td {
     border-radius: 8px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     display: none;
-    position:absolute;
+    position: absolute;
     top: 50%;
     margin-left: 35px;
     bottom: 0;
@@ -454,10 +462,21 @@ td {
 
 .quit button {
     float: right;
+    margin-top: 10px;
 }
 
 .quit p {
     margin-top: 0px;
     margin-bottom: 0px;
     text-align: left;
+}
+
+@keyframes fall-animation {
+    from {
+        transform: translateY(-1000px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
