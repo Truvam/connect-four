@@ -415,3 +415,30 @@ h5 {
     display: none;
     color: white;
 }
+
+.quit {
+    background-color: #455a64;
+    width: 200px;
+    height: 100px;
+    padding: 20px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    display: none;
+    color: white;
+}
+
+.quit button {
+    float: right;
+}
+
+.quit p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: left;
+}

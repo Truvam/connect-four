@@ -23,10 +23,16 @@
   </div>
 
   <h4>Connect Four</h4>
-  
+
   <div class="board"></div>
   <div class="current-player"></div>
   <div class="who-won"></div>
+  <div class="quit">
+    <p>Are you sure?</p>
+    <p>(Warning: Current game progress will be lost!)</p>
+    <button class="button no-btn" onclick="quit_game('no')">NO</button>
+    <button class="button yes-btn" onclick="quit_game('yes')">YES</button>
+  </div>
   <div class="configuration">
     <div class="config-size">
       <h5>Board Size</h5>
@@ -121,9 +127,9 @@
     <button class="button cmd-btn btn-config" onclick="show_config()">CONFIGURATION</button>
     <button class="button cmd-btn btn-rules" onclick="show_rules()">RULES</button>
     <button class="button cmd-btn btn-leaderboard" onclick="show_leaderboard()">LEADERBOARD</button>
-    <button class="button cmd-btn btn-quit" onclick="quit_game()">QUIT</button>
+    <button class="button cmd-btn btn-quit" onclick="quit_game('show')">QUIT</button>
   </div>
-  
+
   <div class="logout">
     <button class="btn-logout" onclick="window.location.reload()">
       <img src="img/ic_account_circle.png" alt="logout-img">

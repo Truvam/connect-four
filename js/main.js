@@ -149,10 +149,17 @@ function show_leaderboard() {
     }
 }
 
-function quit_game() {
-    alert("Are you sure?");
-    localStorage.setItem('quit-game', 'true');
-    window.location.reload();
+function quit_game(op) {
+    if(op == "yes") {
+        localStorage.setItem('quit-game', 'true');
+        window.location.reload();
+    }
+    else if(op == 'show') {
+        document.getElementsByClassName("quit")[0].style.display = "unset";
+    }
+    else {
+        document.getElementsByClassName("quit")[0].style.display = "none";
+    }
 }
 
 function set_current_player(current_player, color) {
