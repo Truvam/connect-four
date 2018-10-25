@@ -1,11 +1,13 @@
 window.onload = function () {
     const width = get_board_size('width');
     const height = get_board_size('height');
+    set_onclick_events();
     if (localStorage.getItem('quit-game')) {
         document.getElementsByClassName("welcome")[0].style.display = "none";
         localStorage.removeItem('quit-game');
         new Board(width, height, 'board');
     } else if (localStorage.getItem('start-game')) {
+        insert_leaderboard('', 1)
         document.getElementsByClassName("welcome")[0].style.display = "none";
         document.getElementsByClassName("configuration")[0].style.display = "none";
         localStorage.removeItem('start-game');
@@ -192,21 +194,28 @@ function set_current_player(current_player, color) {
     }
 }
 
-function insert_leaderboard(player) {
+function insert_leaderboard(player, start) {
     let leaderboard = localStorage.getItem('leaderboard');
     leaderboard = JSON.parse(leaderboard)
-    console.log("Lead: ", leaderboard);
     const table = document.getElementById("table");
-    if(!leaderboard.hasOwnProperty(player)) {
-        leaderboard[player] = 1
-        console.log(leaderboard[player]);
+    const table_values = document.getElementsByClassName("table-values");
+    for(let i = 0; i < table_values.length; i++) {
+        table_values[i].innerHTML = "";
     }
-    else {
-        leaderboard[player]++;
-    }
+
+    if(start == 0) {
+        if(!leaderboard.hasOwnProperty(player)) {
+            leaderboard[player] = 1
+            console.log(leaderboard[player]);
+        }
+        else {
+            leaderboard[player]++;
+        }
+    }    
     
-    for(var key in leaderboard) {
+    for(let key in leaderboard) {
         const tr = document.createElement('tr');
+        tr.className = "table-values";
         let td = document.createElement('td');
         td.className = 'name ' + key;
         td.innerHTML = key;
@@ -219,4 +228,32 @@ function insert_leaderboard(player) {
     }
 
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+function set_onclick_events() {
+    document.getElementById('login-button').onclick = login;
+    document.getElementById('player').addEventListener('click', function(event) {
+        select_opponent('player');
+    });
+    document.getElementById('ai').addEventListener('click', function(event) {
+        select_opponent('ai');
+    });
+    document.getElementsByClassName('config-btn')[0].onclick = start_game;
+    document.getElementsByClassName('btn-start')[0].onclick = start_game;
+    document.getElementsByClassName('btn-config')[0].onclick = show_config;
+    document.getElementsByClassName('btn-rules')[0].onclick = show_rules;
+    document.getElementsByClassName('btn-leaderboard')[0].onclick = show_leaderboard;
+    document.getElementsByClassName('btn-quit')[0].addEventListener('click', function(event) {
+        quit_game('show');
+    });
+    document.getElementsByClassName('no-btn')[0].addEventListener('click', function(event) {
+        quit_game('no');
+    });
+    document.getElementsByClassName('yes-btn')[0].addEventListener('click', function(event) {
+        quit_game('yes');
+    });
+    document.getElementsByClassName('btn-logout')[0].addEventListener('click', function(event) {
+        window.location.reload();
+    });
+
 }
