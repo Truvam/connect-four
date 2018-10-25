@@ -1,6 +1,6 @@
 function successors(board) {
     let temp_board = JSON.parse(JSON.stringify(board));
-    var child_list = []
+    let child_list = []
     for (let i = 0; i < board.width; i++) {
         place_piece(temp_board, i);
         temp_board.column = i;
@@ -13,7 +13,7 @@ function successors(board) {
 function alpha_beta(board, depth, alpha, beta) {
     let value = -Infinity;
     let column = 0;
-    for (var s of successors(board)) {
+    for (let s of successors(board)) {
         let v = min_value(s, depth - 1, alpha, beta);
         if (v >= value) {
             value = v;
@@ -32,7 +32,7 @@ function min_value(board, depth, alpha, beta) {
         return value;
     let v = Infinity;
     board.current_player = board.first_player;
-    for (var s of successors(board)) {
+    for (let s of successors(board)) {
         v = Math.min(v, max_value(s, depth - 1, alpha, beta));
         if (v <= alpha)
             return v;
@@ -48,7 +48,7 @@ function max_value(board, depth, alpha, beta) {
         return value;
     let v = -Infinity;
     board.current_player = board.second_player;
-    for (var s of successors(board)) {
+    for (let s of successors(board)) {
         v = Math.max(v, min_value(s, depth - 1, alpha, beta));
         if (v >= beta)
             return v;
