@@ -80,6 +80,7 @@ function login() {
     document.getElementsByClassName("logout")[0].style.display = "unset";
     document.getElementsByClassName("val-html")[0].style.display = "unset";
     document.getElementsByClassName("val-css")[0].style.display = "unset";
+    document.getElementsByClassName("github")[0].style.display = "unset";
 }
 
 function select_opponent(id) {
