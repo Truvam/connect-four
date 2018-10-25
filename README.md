@@ -1,6 +1,12 @@
 [![python](https://img.shields.io/badge/python-3.5-blue.svg)](https://www.python.org/downloads/)
 
 # Connect Four
+## Web:
+```
+Visit: https://truvam.github.io/connect-four/
+```
+------
+## Python:
 ## Installation:
 ```
 Version: Python 3.5.2
