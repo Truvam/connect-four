@@ -57,6 +57,7 @@ window.onload = function () {
         document.getElementsByClassName("logout")[0].style.display = "none";
         document.getElementsByClassName("val-html")[0].style.display = "none";
         document.getElementsByClassName("val-css")[0].style.display = "none";
+        document.getElementsByClassName("github")[0].style.display = "none";
     }
 };
 
