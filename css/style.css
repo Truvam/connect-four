@@ -167,7 +167,7 @@ h5 {
     display: none;
 }
 
-.configuration.rules p{
+.configuration.rules p {
     margin-top: 50px;
     text-align: justify;
 }
@@ -413,6 +413,17 @@ td {
 
 .val-css img {
     width: 80px;
+}
+
+.github {
+    text-align: right;
+    position: absolute;
+    top: 200px;
+    right: 10px;
+}
+
+.github img {
+    width: 40px;
 }
 
 .current-player {
