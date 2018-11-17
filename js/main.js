@@ -49,7 +49,14 @@ window.onload = function () {
     } else {
         new Board(width, height, 'board');
         let leaderboard = {};
-        localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+        if(!localStorage.getItem('first')) {
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+            localStorage.setItem('first', true);
+        }
+        else if (localStorage.getItem('first')){
+            leaderboard = localStorage.getItem('leaderboard');
+            insert_leaderboard('', 1);
+        } 
         document.getElementsByClassName("configuration")[0].style.display = "none";
         document.getElementsByClassName("board")[0].style.display = "none";
         document.getElementsByClassName("logout")[0].style.display = "none";

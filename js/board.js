@@ -128,6 +128,7 @@ function who_won(board, quit=false) {
         for (let i = 0; i < elements.length; i++) {
             elements[i].classList.remove('empty');
         }
+        document.getElementsByClassName('btn-quit')[0].style.display = "none";
     }
     else {
         const result = utility(board);
@@ -135,6 +136,7 @@ function who_won(board, quit=false) {
             document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
             document.getElementsByClassName("who-won")[0].style.display = "unset";
             document.getElementsByClassName("board")[0].style.opacity = "0.2";
+            document.getElementsByClassName('btn-quit')[0].style.display = "none";
         }
         if (result == 512 || result == -512) {
             insert_leaderboard(board.current_player, 0);
@@ -145,6 +147,7 @@ function who_won(board, quit=false) {
             for (let i = 0; i < elements.length; i++) {
                 elements[i].classList.remove('empty');
             }
+            document.getElementsByClassName('btn-quit')[0].style.display = "none";
         }
     }
     
