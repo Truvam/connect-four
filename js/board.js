@@ -118,16 +118,10 @@ function find_empty_cell(column) {
     return null;
 }
 
-function who_won(board) {
-    const result = utility(board);
-    if (is_draw(board)) {
-        document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
-        document.getElementsByClassName("who-won")[0].style.display = "unset";
-        document.getElementsByClassName("board")[0].style.opacity = "0.2";
-    }
-    if (result == 512 || result == -512) {
-        insert_leaderboard(board.current_player, 0);
-        document.getElementsByClassName("who-won")[0].innerHTML = board.current_player + " won!";
+function who_won(board, quit=false) {
+    if(quit) {
+        insert_leaderboard(board.second_player, 0);
+        document.getElementsByClassName("who-won")[0].innerHTML = board.second_player + " won!";
         document.getElementsByClassName("who-won")[0].style.display = "unset";
         document.getElementsByClassName("board")[0].style.opacity = "0.2";
         const elements = document.getElementsByClassName('cell');
@@ -135,6 +129,25 @@ function who_won(board) {
             elements[i].classList.remove('empty');
         }
     }
+    else {
+        const result = utility(board);
+        if (is_draw(board)) {
+            document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
+            document.getElementsByClassName("who-won")[0].style.display = "unset";
+            document.getElementsByClassName("board")[0].style.opacity = "0.2";
+        }
+        if (result == 512 || result == -512) {
+            insert_leaderboard(board.current_player, 0);
+            document.getElementsByClassName("who-won")[0].innerHTML = board.current_player + " won!";
+            document.getElementsByClassName("who-won")[0].style.display = "unset";
+            document.getElementsByClassName("board")[0].style.opacity = "0.2";
+            const elements = document.getElementsByClassName('cell');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].classList.remove('empty');
+            }
+        }
+    }
+    
 }
 
 function play_ai(board) {

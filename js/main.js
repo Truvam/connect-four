@@ -1,15 +1,13 @@
+let board = null;
 window.onload = function () {
     const width = get_board_size('width');
     const height = get_board_size('height');
     set_onclick_events();
-    if (localStorage.getItem('quit-game')) {
-        document.getElementsByClassName("welcome")[0].style.display = "none";
-        localStorage.removeItem('quit-game');
-        new Board(width, height, 'board');
-    } else if (localStorage.getItem('start-game')) {
-        insert_leaderboard('', 1)
+    if (localStorage.getItem('start-game')) {
+        insert_leaderboard('', 1);
         document.getElementsByClassName("welcome")[0].style.display = "none";
         document.getElementsByClassName("configuration")[0].style.display = "none";
+        document.getElementsByClassName('btn-quit')[0].style.display = "unset";
         localStorage.removeItem('start-game');
         const width = localStorage.getItem('width');
         const height = localStorage.getItem('height');
@@ -20,7 +18,7 @@ window.onload = function () {
         document.getElementById(first_player).checked = true;
         document.getElementById('size-w').value = width;
         document.getElementById('size-h').value = height;
-        const board = new Board(width, height, 'board');
+        board = new Board(width, height, 'board');
         if (opponent == "ai") {
             const diff = localStorage.getItem('diff');
             document.getElementById(diff).checked = true;
@@ -168,8 +166,7 @@ function show_leaderboard() {
 function quit_game(op) {
     close_panels();
     if(op == "yes") {
-        localStorage.setItem('quit-game', 'true');
-        window.location.reload();
+        who_won(board, quit=true);
     }
     else if(op == 'show') {
         document.getElementsByClassName("quit")[0].style.display = "unset";

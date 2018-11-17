@@ -489,6 +489,10 @@ td {
     text-align: left;
 }
 
+.btn-quit {
+    display: none;
+}
+
 @keyframes fall-animation {
     from {
         transform: translateY(-1000px);
