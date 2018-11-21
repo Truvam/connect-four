@@ -67,6 +67,11 @@ form button {
     transition-duration: 0.25s;
 }
 
+.login-error {
+    color: white;
+    display: none;
+}
+
 form button:hover {
     background-color: #f5f7f9;
 }
