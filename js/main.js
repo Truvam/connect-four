@@ -76,18 +76,6 @@ function get_board_size(where) {
     }
 }
 
-function login() {
-    const username = document.getElementById('user').value;
-    document.getElementsByClassName("welcome")[0].style.display = "none";
-    document.getElementsByClassName("board")[0].style.display = "inline-block";
-    show_config();
-    document.getElementsByClassName("user-logout")[0].innerHTML = username;
-    document.getElementsByClassName("logout")[0].style.display = "unset";
-    document.getElementsByClassName("val-html")[0].style.display = "unset";
-    document.getElementsByClassName("val-css")[0].style.display = "unset";
-    document.getElementsByClassName("github")[0].style.display = "unset";
-}
-
 function select_opponent(id) {
     if (id == "ai") {
         document.getElementById("f-label").innerText = "Player";
@@ -237,7 +225,11 @@ function insert_leaderboard(player, start) {
 }
 
 function set_onclick_events() {
-    document.getElementById('login-button').onclick = login;
+    document.getElementById('login-button').addEventListener('click', function(event) {
+        const nick = document.getElementById('user').value;
+        const pass = document.getElementById('pass').value;
+        register(nick, pass);
+    });
     document.getElementById('player').addEventListener('click', function(event) {
         select_opponent('player');
     });
