@@ -39,11 +39,18 @@ class Board {
                 const column = event.target.dataset.column;
                 const empty_cell = find_empty_cell(column);
                 if (empty_cell != null) {
-                    if (this.current_player == this.first_player) {
-                        empty_cell.classList.add('cell-red');
-                    } else {
-                        if (!document.getElementById('ai').checked)
+                    if (document.getElementById('online').checked) {
+                        if (online_first_player == document.getElementById('user').value)
+                            empty_cell.classList.add('cell-red');
+                        else
                             empty_cell.classList.add('cell-blue');
+                    } else {
+                        if (this.current_player == this.first_player) {
+                            empty_cell.classList.add('cell-red');
+                        } else {
+                            if (!document.getElementById('ai').checked)
+                                empty_cell.classList.add('cell-blue');
+                        }
                     }
                 }
             }
@@ -51,15 +58,29 @@ class Board {
 
         board.addEventListener('mouseout', (event) => {
             if (event.target.className.includes('cell')) {
-                if (this.current_player == this.first_player) {
-                    const cells = document.querySelectorAll('.cell-red')[0];
-                    if (cells != null) {
-                        cells.classList.remove('cell-red');
+                if (document.getElementById('online').checked) {
+                    if (online_first_player == document.getElementById('user').value) {
+                        const cells = document.querySelectorAll('.cell-red')[0];
+                        if (cells != null) {
+                            cells.classList.remove('cell-red');
+                        }
+                    } else {
+                        const cells = document.querySelectorAll('.cell-blue')[0];
+                        if (cells != null) {
+                            cells.classList.remove('cell-blue');
+                        }
                     }
                 } else {
-                    const cells = document.querySelectorAll('.cell-blue')[0];
-                    if (cells != null) {
-                        cells.classList.remove('cell-blue');
+                    if (this.current_player == this.first_player) {
+                        const cells = document.querySelectorAll('.cell-red')[0];
+                        if (cells != null) {
+                            cells.classList.remove('cell-red');
+                        }
+                    } else {
+                        const cells = document.querySelectorAll('.cell-blue')[0];
+                        if (cells != null) {
+                            cells.classList.remove('cell-blue');
+                        }
                     }
                 }
             }
@@ -68,25 +89,29 @@ class Board {
         board.addEventListener('click', (event) => {
             if (event.target.className.includes('cell empty')) {
                 const column = event.target.dataset.column;
-                let empty_cell = find_empty_cell(column);
+                console.log(column);
+                if (document.getElementById('online').checked) {
+                    notify(document.getElementById('user').value, document.getElementById('pass').value, column);
+                } else {
+                    let empty_cell = find_empty_cell(column);
+                    if (empty_cell != null) {
+                        empty_cell.classList.remove('empty');
+                        if (this.current_player == this.first_player) {
+                            this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'r';
+                            empty_cell.classList.add('red');
+                            who_won(this);
+                            this.current_player = this.second_player;
+                            set_current_player(this.current_player, "blue");
+                            if (document.getElementById('ai').checked)
+                                play_ai(this);
 
-                if (empty_cell != null) {
-                    empty_cell.classList.remove('empty');
-                    if (this.current_player == this.first_player) {
-                        this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'r';
-                        empty_cell.classList.add('red');
-                        who_won(this);
-                        this.current_player = this.second_player;
-                        set_current_player(this.current_player, "blue");
-                        if (document.getElementById('ai').checked)
-                            play_ai(this);
-
-                    } else {
-                        this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
-                        empty_cell.classList.add('blue');
-                        who_won(this);
-                        this.current_player = this.first_player;
-                        set_current_player(this.current_player, "red");
+                        } else {
+                            this.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
+                            empty_cell.classList.add('blue');
+                            who_won(this);
+                            this.current_player = this.first_player;
+                            set_current_player(this.current_player, "red");
+                        }
                     }
                 }
             }
@@ -118,8 +143,8 @@ function find_empty_cell(column) {
     return null;
 }
 
-function who_won(board, quit=false) {
-    if(quit) {
+function who_won(board, quit = false) {
+    if (quit) {
         insert_leaderboard(board.second_player, 0);
         document.getElementsByClassName("who-won")[0].innerHTML = board.second_player + " won!";
         document.getElementsByClassName("who-won")[0].style.display = "unset";
@@ -129,8 +154,7 @@ function who_won(board, quit=false) {
             elements[i].classList.remove('empty');
         }
         document.getElementsByClassName('btn-quit')[0].style.display = "none";
-    }
-    else {
+    } else {
         const result = utility(board);
         if (is_draw(board)) {
             document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
@@ -150,7 +174,17 @@ function who_won(board, quit=false) {
             document.getElementsByClassName('btn-quit')[0].style.display = "none";
         }
     }
-    
+
+}
+
+function play_online(column, player) {
+    let empty_cell = find_empty_cell(column);
+    console.log("player: ", player);
+    if (empty_cell != null) {
+        empty_cell.classList.remove('empty');
+        if (player == online_first_player) empty_cell.classList.add('blue');
+        else empty_cell.classList.add('red');
+    }
 }
 
 function play_ai(board) {

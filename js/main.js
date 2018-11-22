@@ -15,7 +15,7 @@ window.onload = function () {
         document.getElementById(opponent).checked = true;
         select_opponent(opponent);
         const first_player = localStorage.getItem('first_player');
-        document.getElementById(first_player).checked = true;
+        if(first_player != null) document.getElementById(first_player).checked = true;
         document.getElementById('size-w').value = width;
         document.getElementById('size-h').value = height;
         board = new Board(width, height, 'board');
@@ -45,13 +45,19 @@ window.onload = function () {
         } else if (opponent == 'online') {
             const nick = localStorage.getItem('nick');
             const pass = localStorage.getItem('pass');
+            online_first_player = nick;
+            document.getElementById('user').value = nick;
+            document.getElementById('pass').value = pass;
             document.getElementsByClassName("user-logout")[0].innerHTML = nick;
             console.log("Nick:", nick, "Pass:", pass);
-            join(4623, nick, pass, {'rows':Number(height), 'columns':Number(width)});
+            join(4623, nick, pass, {
+                'rows': Number(height),
+                'columns': Number(width)
+            });
         }
         board.current_player = board.first_player;
         document.getElementsByClassName("board")[0].style.opacity = "1";
-        board.event_listener();
+        if (opponent != 'online') board.event_listener();
     } else {
         new Board(width, height, 'board');
         let leaderboard = {};
@@ -125,11 +131,6 @@ function start_game() {
         localStorage.setItem('nick', document.getElementById('user').value);
         localStorage.setItem('pass', document.getElementById('pass').value);
         localStorage.setItem('opponent', 'online');
-        if (document.getElementById('first-player').checked) {
-            localStorage.setItem('first_player', 'first-player');
-        } else {
-            localStorage.setItem('first_player', 'second-player');
-        }
     }
     window.location.reload();
 }
@@ -255,7 +256,9 @@ function set_onclick_events() {
     document.getElementsByClassName('btn-rules')[0].onclick = show_rules;
     document.getElementsByClassName('btn-leaderboard')[0].onclick = show_leaderboard;
     document.getElementsByClassName('btn-quit')[0].addEventListener('click', function (event) {
-        quit_game('show');
+        const nick = document.getElementById('user').value;
+        const pass = document.getElementById('pass').value;
+        quit_game(nick, pass);
     });
     document.getElementsByClassName('no-btn')[0].addEventListener('click', function (event) {
         quit_game('no');
