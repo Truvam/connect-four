@@ -179,6 +179,22 @@ h5 {
 
 .configuration.leaderboard {
     display: none;
+    overflow: auto;
+}
+
+.configuration.leaderboard::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.configuration.leaderboard::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 3.2em;
+	background-color: #F5F5F5;
+}
+
+.configuration.leaderboard::-webkit-scrollbar-thumb {
+    background-color: rgb(141, 139, 139);
 }
 
 .table.leaderboard {
@@ -189,7 +205,6 @@ h5 {
     padding: 9px;
     border-bottom: 2px solid white;
     text-align: center;
-
 }
 
 h3 {
