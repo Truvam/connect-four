@@ -155,10 +155,10 @@ function who_won(board, quit = false, online = false, player = "") {
             elements[i].classList.remove('empty');
         }
         document.getElementsByClassName('btn-quit')[0].style.display = "none";
-    } else if(online) {
-        if(player == null)
+    } else if (online) {
+        if (player == null)
             document.getElementsByClassName("who-won")[0].innerHTML = "You left!";
-        else if(player == document.getElementById('user').value)
+        else if (player == document.getElementById('user').value)
             document.getElementsByClassName("who-won")[0].innerHTML = "You won!";
         else
             document.getElementsByClassName("who-won")[0].innerHTML = "You lost!";
@@ -198,12 +198,11 @@ function play_online(column, player, won = false) {
     if (empty_cell != null) {
         empty_cell.classList.remove('empty');
         if (player == online_first_player) {
-            if(won) empty_cell.classList.add('red');
+            if (won) empty_cell.classList.add('red');
             else empty_cell.classList.add('blue');
             set_current_player(player, 'red');
-        }
-        else {
-            if(won) empty_cell.classList.add('blue');
+        } else {
+            if (won) empty_cell.classList.add('blue');
             else empty_cell.classList.add('red');
             set_current_player(player, 'blue');
         }
