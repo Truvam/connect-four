@@ -184,8 +184,12 @@ function show_leaderboard() {
 
 function quit_game(op) {
     close_panels();
-    if (op == "yes") {
+    if (op == "yes" && !document.getElementById('online').checked) {
         who_won(board, quit = true);
+    } else if(op === "yes" && document.getElementById('online').checked) {
+        const nick = document.getElementById('user').value;
+        const pass = document.getElementById('pass').value;
+        leave(nick, pass);
     } else if (op == 'show') {
         document.getElementsByClassName("quit")[0].style.display = "unset";
     } else {
@@ -265,9 +269,7 @@ function set_onclick_events() {
     document.getElementsByClassName('btn-rules')[0].onclick = show_rules;
     document.getElementsByClassName('btn-leaderboard')[0].onclick = show_leaderboard;
     document.getElementsByClassName('btn-quit')[0].addEventListener('click', function (event) {
-        const nick = document.getElementById('user').value;
-        const pass = document.getElementById('pass').value;
-        quit_game(nick, pass);
+        quit_game('show');
     });
     document.getElementsByClassName('no-btn')[0].addEventListener('click', function (event) {
         quit_game('no');

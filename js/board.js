@@ -156,7 +156,9 @@ function who_won(board, quit = false, online = false, player = "") {
         }
         document.getElementsByClassName('btn-quit')[0].style.display = "none";
     } else if(online) {
-        if(player == document.getElementById('user').value)
+        if(player == null)
+            document.getElementsByClassName("who-won")[0].innerHTML = "You left!";
+        else if(player == document.getElementById('user').value)
             document.getElementsByClassName("who-won")[0].innerHTML = "You won!";
         else
             document.getElementsByClassName("who-won")[0].innerHTML = "You lost!";
