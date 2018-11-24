@@ -93,15 +93,19 @@ function select_opponent(id) {
         document.getElementById("s-label").innerText = "AI";
         document.getElementById("first-player").value = "Player";
         document.getElementById("second-player").value = "AI";
+        document.getElementsByClassName("config-first")[0].style.display = "unset";
         document.getElementsByClassName("config-dif")[0].style.display = "unset";
         document.getElementsByClassName("config-btn")[0].style.margin = "20px 0 0";
-    } else {
+    } else if (id == "player") {
         document.getElementById("f-label").innerText = "Player 1";
         document.getElementById("s-label").innerText = "Player 2";
         document.getElementById("first-player").value = "Player 1";
         document.getElementById("second-player").value = "Player 2";
+        document.getElementsByClassName("config-first")[0].style.display = "unset";
         document.getElementsByClassName("config-dif")[0].style.display = "none";
         document.getElementsByClassName("config-btn")[0].style.margin = "50px 0 0";
+    } else {
+        document.getElementsByClassName("config-first")[0].style.display = "none";
     }
 }
 

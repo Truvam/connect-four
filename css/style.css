@@ -257,6 +257,7 @@ td {
 
 .config-first {
     color: white;
+    display: none;
 }
 
 .first-option {
