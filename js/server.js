@@ -91,11 +91,14 @@ function update(nick) {
         console.log("onmessage:", data);
         if (!data.hasOwnProperty('column') && !data.hasOwnProperty('winner')) {
             online_first_player = data.turn;
+            document.getElementsByClassName("who-won")[0].style.display = "none";
+            document.getElementsByClassName("board")[0].style.opacity = "1";
             set_current_player(data.turn, "red");
             board.event_listener();
         } else if (data.hasOwnProperty('turn'))
             play_online(data.column, data.turn);
         else if (data.hasOwnProperty('winner')) {
+            play_online(data.column, data.winner, true);
             who_won(board, false, true, data.winner);
             eventSource.close();
         }

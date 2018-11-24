@@ -144,6 +144,7 @@ function find_empty_cell(column) {
 }
 
 function who_won(board, quit = false, online = false, player = "") {
+    document.getElementsByClassName("who-won")[0].style.width = "220px";
     if (quit) {
         insert_leaderboard(board.second_player, 0);
         document.getElementsByClassName("who-won")[0].innerHTML = board.second_player + " won!";
@@ -189,17 +190,19 @@ function who_won(board, quit = false, online = false, player = "") {
 
 }
 
-function play_online(column, player) {
+function play_online(column, player, won = false) {
     let empty_cell = find_empty_cell(column);
     console.log("player: ", player);
     if (empty_cell != null) {
         empty_cell.classList.remove('empty');
         if (player == online_first_player) {
-            empty_cell.classList.add('blue');
+            if(won) empty_cell.classList.add('red');
+            else empty_cell.classList.add('blue');
             set_current_player(player, 'red');
         }
         else {
-            empty_cell.classList.add('red');
+            if(won) empty_cell.classList.add('blue');
+            else empty_cell.classList.add('red');
             set_current_player(player, 'blue');
         }
     }

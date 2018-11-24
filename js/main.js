@@ -50,14 +50,19 @@ window.onload = function () {
             document.getElementById('pass').value = pass;
             document.getElementsByClassName("user-logout")[0].innerHTML = nick;
             console.log("Nick:", nick, "Pass:", pass);
+            document.getElementsByClassName("who-won")[0].innerHTML = "Looking for players...";
+            document.getElementsByClassName("who-won")[0].style.width = "330px";
+            document.getElementsByClassName("who-won")[0].style.display = "unset";
             join(4623, nick, pass, {
                 'rows': Number(height),
                 'columns': Number(width)
             });
         }
         board.current_player = board.first_player;
-        document.getElementsByClassName("board")[0].style.opacity = "1";
-        if (opponent != 'online') board.event_listener();
+        if (opponent != 'online') {
+            document.getElementsByClassName("board")[0].style.opacity = "1";
+            board.event_listener();
+        }
     } else {
         new Board(width, height, 'board');
         let leaderboard = {};
