@@ -4,7 +4,6 @@ window.onload = function () {
     const height = get_board_size('height');
     set_onclick_events();
     if (localStorage.getItem('start-game')) {
-        insert_leaderboard('', 1);
         document.getElementsByClassName("welcome")[0].style.display = "none";
         document.getElementsByClassName("configuration")[0].style.display = "none";
         document.getElementsByClassName('btn-quit')[0].style.display = "unset";
@@ -15,7 +14,7 @@ window.onload = function () {
         document.getElementById(opponent).checked = true;
         select_opponent(opponent);
         const first_player = localStorage.getItem('first_player');
-        if(first_player != null) document.getElementById(first_player).checked = true;
+        if (first_player != null) document.getElementById(first_player).checked = true;
         document.getElementById('size-w').value = width;
         document.getElementById('size-h').value = height;
         board = new Board(width, height, 'board');
@@ -60,6 +59,7 @@ window.onload = function () {
         }
         board.current_player = board.first_player;
         if (opponent != 'online') {
+            insert_leaderboard('', 1);
             document.getElementsByClassName("board")[0].style.opacity = "1";
             board.event_listener();
         }
@@ -71,7 +71,7 @@ window.onload = function () {
             localStorage.setItem('first', true);
         } else if (localStorage.getItem('first')) {
             leaderboard = localStorage.getItem('leaderboard');
-            insert_leaderboard('', 1);
+            //insert_leaderboard('', 1);
         }
         document.getElementsByClassName("configuration")[0].style.display = "none";
         document.getElementsByClassName("board")[0].style.display = "none";
@@ -111,6 +111,8 @@ function select_opponent(id) {
         document.getElementsByClassName("config-btn")[0].style.margin = "50px 0 0";
     } else {
         document.getElementsByClassName("config-first")[0].style.display = "none";
+        document.getElementsByClassName("config-dif")[0].style.display = "none";
+        document.getElementsByClassName("config-btn")[0].style.margin = "50px 0 0";
     }
 }
 
@@ -176,9 +178,18 @@ function show_leaderboard() {
     const display = document.getElementsByClassName("leaderboard")[0].style.display;
     if (display == "unset") {
         close_panels();
+    } else if (!document.getElementById('online').checked) {
+        close_panels();
+        document.getElementsByClassName("leaderboard")[0].style.display = "unset";
     } else {
         close_panels();
         document.getElementsByClassName("leaderboard")[0].style.display = "unset";
+        const width = localStorage.getItem('width');
+        const height = localStorage.getItem('height');
+        ranking({
+            'rows': Number(height),
+            'columns': Number(width)
+        });
     }
 }
 
@@ -186,7 +197,7 @@ function quit_game(op) {
     close_panels();
     if (op == "yes" && !document.getElementById('online').checked) {
         who_won(board, quit = true);
-    } else if(op === "yes" && document.getElementById('online').checked) {
+    } else if (op === "yes" && document.getElementById('online').checked) {
         const nick = document.getElementById('user').value;
         const pass = document.getElementById('pass').value;
         leave(nick, pass);
@@ -246,6 +257,28 @@ function insert_leaderboard(player, start) {
     }
 
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+function insert_leaderboard_online(ranking) {
+    console.log("Ranking: ", ranking);
+    const table = document.getElementById("table");
+    const table_size = table.rows.length;
+    console.log(table, table_size);
+    for (let i = table_size - 1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+
+    for (let value in ranking) {
+        console.log(value, ranking[value].nick, ranking[value].victories);
+        const row = table.insertRow(Number(value) + 1);
+        const nick = row.insertCell(0);
+        const victories = row.insertCell(1);
+        const games = row.insertCell(2);
+        nick.innerHTML = ranking[value].nick;
+        victories.innerHTML = ranking[value].victories;
+        games.innerHTML = ranking[value].games;
+    }
+
 }
 
 function set_onclick_events() {

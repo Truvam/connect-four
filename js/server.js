@@ -106,5 +106,16 @@ function update(nick) {
 }
 
 function ranking(size) {
-
+    fetch(url + 'ranking', {
+            method: 'post',
+            body: JSON.stringify({
+                'size': size
+            })
+        })
+        .then(response => response.json())
+        .then(function (response) {
+            console.log('response: ', response);
+            if (response.hasOwnProperty('ranking'))
+                insert_leaderboard_online(response.ranking);
+        });
 }
