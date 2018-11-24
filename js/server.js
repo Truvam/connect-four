@@ -91,6 +91,7 @@ function update(nick) {
         console.log("onmessage:", data);
         if (!data.hasOwnProperty('column') && !data.hasOwnProperty('winner')) {
             online_first_player = data.turn;
+            set_current_player(data.turn, "red");
             board.event_listener();
         } else if (data.hasOwnProperty('turn'))
             play_online(data.column, data.turn);

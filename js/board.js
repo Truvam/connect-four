@@ -194,8 +194,14 @@ function play_online(column, player) {
     console.log("player: ", player);
     if (empty_cell != null) {
         empty_cell.classList.remove('empty');
-        if (player == online_first_player) empty_cell.classList.add('blue');
-        else empty_cell.classList.add('red');
+        if (player == online_first_player) {
+            empty_cell.classList.add('blue');
+            set_current_player(player, 'red');
+        }
+        else {
+            empty_cell.classList.add('red');
+            set_current_player(player, 'blue');
+        }
     }
 }
 
