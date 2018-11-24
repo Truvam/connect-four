@@ -143,10 +143,22 @@ function find_empty_cell(column) {
     return null;
 }
 
-function who_won(board, quit = false) {
+function who_won(board, quit = false, online = false, player = "") {
     if (quit) {
         insert_leaderboard(board.second_player, 0);
         document.getElementsByClassName("who-won")[0].innerHTML = board.second_player + " won!";
+        document.getElementsByClassName("who-won")[0].style.display = "unset";
+        document.getElementsByClassName("board")[0].style.opacity = "0.2";
+        const elements = document.getElementsByClassName('cell');
+        for (let i = 0; i < elements.length; i++) {
+            elements[i].classList.remove('empty');
+        }
+        document.getElementsByClassName('btn-quit')[0].style.display = "none";
+    } else if(online) {
+        if(player == document.getElementById('user').value)
+            document.getElementsByClassName("who-won")[0].innerHTML = "You won!";
+        else
+            document.getElementsByClassName("who-won")[0].innerHTML = "You lost!";
         document.getElementsByClassName("who-won")[0].style.display = "unset";
         document.getElementsByClassName("board")[0].style.opacity = "0.2";
         const elements = document.getElementsByClassName('cell');

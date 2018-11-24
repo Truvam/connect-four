@@ -89,12 +89,13 @@ function update(nick) {
     eventSource.onmessage = function (event) {
         var data = JSON.parse(event.data);
         console.log("onmessage:", data);
-        if (!data.hasOwnProperty('column')) {
+        if (!data.hasOwnProperty('column') && !data.hasOwnProperty('winner')) {
             online_first_player = data.turn;
             board.event_listener();
         } else if (data.hasOwnProperty('turn'))
             play_online(data.column, data.turn);
         else if (data.hasOwnProperty('winner')) {
+            who_won(board, false, true, data.winner);
             eventSource.close();
         }
     }
