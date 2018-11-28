@@ -184,8 +184,8 @@ function show_leaderboard() {
     } else {
         close_panels();
         document.getElementsByClassName("leaderboard")[0].style.display = "unset";
-        const width = localStorage.getItem('width');
-        const height = localStorage.getItem('height');
+        const width = get_board_size('width');
+        const height = get_board_size('height');
         ranking({
             'rows': Number(height),
             'columns': Number(width)
