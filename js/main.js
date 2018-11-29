@@ -48,10 +48,10 @@ window.onload = function () {
             document.getElementById('user').value = nick;
             document.getElementById('pass').value = pass;
             document.getElementsByClassName("user-logout")[0].innerHTML = nick;
-            console.log("Nick:", nick, "Pass:", pass);
-            document.getElementsByClassName("who-won")[0].innerHTML = "Looking for players...";
-            document.getElementsByClassName("who-won")[0].style.width = "330px";
+            document.getElementsByClassName("who-won")[0].innerHTML = "Looking for players <canvas id='spinner'></canvas>";
+            document.getElementsByClassName("who-won")[0].style.width = "440px";
             document.getElementsByClassName("who-won")[0].style.display = "unset";
+            start_spinner()
             join(4623, nick, pass, {
                 'rows': Number(height),
                 'columns': Number(width)
@@ -59,6 +59,7 @@ window.onload = function () {
         }
         board.current_player = board.first_player;
         if (opponent != 'online') {
+            document.getElementsByClassName('table-games')[0].style.display = "none";
             insert_leaderboard('', 1);
             document.getElementsByClassName("board")[0].style.opacity = "1";
             board.event_listener();
@@ -71,7 +72,6 @@ window.onload = function () {
             localStorage.setItem('first', true);
         } else if (localStorage.getItem('first')) {
             leaderboard = localStorage.getItem('leaderboard');
-            //insert_leaderboard('', 1);
         }
         document.getElementsByClassName("configuration")[0].style.display = "none";
         document.getElementsByClassName("board")[0].style.display = "none";
@@ -216,10 +216,8 @@ function set_current_player(current_player, color) {
         document.getElementsByClassName("current-player")[0].innerHTML = current_player;
         if (color == "red") {
             document.getElementsByClassName("current-player")[0].style.backgroundColor = "#ff5252";
-            console.log("Player 1: ", current_player);
         } else {
             document.getElementsByClassName("current-player")[0].style.backgroundColor = "#303f9f";
-            console.log("Player 2: ", current_player);
         }
     }
 }
@@ -236,7 +234,6 @@ function insert_leaderboard(player, start) {
     if (start == 0) {
         if (!leaderboard.hasOwnProperty(player)) {
             leaderboard[player] = 1
-            console.log(leaderboard[player]);
         } else {
             leaderboard[player]++;
         }
@@ -260,16 +257,13 @@ function insert_leaderboard(player, start) {
 }
 
 function insert_leaderboard_online(ranking) {
-    console.log("Ranking: ", ranking);
     const table = document.getElementById("table");
     const table_size = table.rows.length;
-    console.log(table, table_size);
     for (let i = table_size - 1; i > 0; i--) {
         table.deleteRow(i);
     }
 
     for (let value in ranking) {
-        console.log(value, ranking[value].nick, ranking[value].victories);
         const row = table.insertRow(Number(value) + 1);
         const nick = row.insertCell(0);
         const victories = row.insertCell(1);
@@ -278,7 +272,6 @@ function insert_leaderboard_online(ranking) {
         victories.innerHTML = ranking[value].victories;
         games.innerHTML = ranking[value].games;
     }
-
 }
 
 function set_onclick_events() {
@@ -313,5 +306,32 @@ function set_onclick_events() {
     document.getElementsByClassName('btn-logout')[0].addEventListener('click', function (event) {
         window.location.reload();
     });
+}
 
+function start_spinner() {
+    const canvas = document.getElementById('spinner');
+    const context = canvas.getContext('2d');
+    const start = new Date();
+    const lines = 16,
+        canvas_width = context.canvas.width,
+        canvas_height = context.canvas.height;
+
+    var draw = function () {
+        const rotation = parseInt(((new Date() - start) / 1000) * lines) / lines;
+        context.save();
+        context.clearRect(0, 0, canvas_width, canvas_height);
+        context.translate(canvas_width / 2, canvas_height / 2);
+        context.rotate(Math.PI * 2 * rotation);
+        for (let i = 0; i < lines; i++) {
+            context.beginPath();
+            context.rotate(Math.PI * 2 / lines);
+            context.moveTo(canvas_width / 10, 0);
+            context.lineTo(canvas_width / 4, 0);
+            context.lineWidth = canvas_width / 30;
+            context.strokeStyle = "rgba(255, 255, 255," + i / lines + ")";
+            context.stroke();
+        }
+        context.restore();
+    };
+    window.setInterval(draw, 1000 / 30);
 }
