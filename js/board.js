@@ -89,7 +89,6 @@ class Board {
         board.addEventListener('click', (event) => {
             if (event.target.className.includes('cell empty')) {
                 const column = event.target.dataset.column;
-                console.log(column);
                 if (document.getElementById('online').checked) {
                     notify(document.getElementById('user').value, document.getElementById('pass').value, column);
                 } else {
@@ -156,9 +155,12 @@ function who_won(board, quit = false, online = false, player = "") {
         }
         document.getElementsByClassName('btn-quit')[0].style.display = "none";
     } else if (online) {
-        if (player == null)
-            document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
-        else if (player == document.getElementById('user').value)
+        if (player == null) {
+            if (document.getElementsByClassName("board")[0].style.opacity != "1")
+                document.getElementsByClassName("who-won")[0].innerHTML = "You left!";
+            else
+                document.getElementsByClassName("who-won")[0].innerHTML = "Draw!";
+        } else if (player == document.getElementById('user').value)
             document.getElementsByClassName("who-won")[0].innerHTML = "You won!";
         else
             document.getElementsByClassName("who-won")[0].innerHTML = "You lost!";
@@ -194,7 +196,6 @@ function who_won(board, quit = false, online = false, player = "") {
 
 function play_online(column, player, won = false) {
     let empty_cell = find_empty_cell(column);
-    console.log("player: ", player);
     if (empty_cell != null) {
         empty_cell.classList.remove('empty');
         if (player == online_first_player) {
@@ -218,7 +219,6 @@ function play_ai(board) {
             board.matrix[empty_cell.dataset.row][empty_cell.dataset.column] = 'b';
             empty_cell.classList.add('blue');
             empty_cell.classList.remove('empty');
-            console.log(board.current_player);
             who_won(board);
             board.current_player = board.first_player;
             set_current_player(board.current_player, "red");
