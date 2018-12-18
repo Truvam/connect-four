@@ -1,0 +1,11 @@
+{
+    "ranking": [{
+        "nick": "ads",
+        "victories": 2,
+        "games": 2
+    }, {
+        "nick": "ads2",
+        "victories": 0,
+        "games": 2
+    }]
+}

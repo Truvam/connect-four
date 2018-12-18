@@ -3,8 +3,11 @@
 
 const http = require('http');
 const conf = require('./conf.js');
-const register = require('./register.js');
 let url = require('url');
+
+const register = require('./register.js');
+const ranking = require('./ranking.js');
+
 
 
 const headers = {
@@ -36,31 +39,42 @@ http.createServer(function (request, response) {
             console.log('GET');
             break;
         case 'POST':
-            doPost(pathname, request, function(answer) {
+            doPost(pathname, request, function (answer) {
                 console.log("SAns: ", answer);
                 write_response(response, answer);
             });
-            
             break;
         default:
             answer.status = 400;
             break;
-    }   
+    }
 
 }).listen(conf.port);
 
 
 function doPost(pathname, request, callback) {
     let answer = {};
+    let json_string = '';
 
     switch (pathname) {
         case '/register':
-            let json_string = '';
+            json_string = '';
             request.on('data', function (data) {
                 json_string += data;
             });
             request.on('end', function () {
-                register.register(JSON.parse(json_string), function(answer) {
+                register.register(JSON.parse(json_string), function (answer) {
+                    callback(answer);
+                });
+            });
+            break;
+        case '/ranking':
+            json_string = '';
+            request.on('data', function (data) {
+                json_string += data;
+            });
+            request.on('end', function () {
+                ranking.ranking(JSON.parse(json_string), function (answer) {
                     callback(answer);
                 });
             });
@@ -75,9 +89,11 @@ function doPost(pathname, request, callback) {
 
 
 function write_response(response, answer) {
-    if(answer.status != undefined) {
+    if (answer.status != undefined) {
         response.writeHead(answer.status, headers[answer.style]);
-        if(answer.status == 200) response.end(JSON.stringify({}));
-        else response.end(JSON.stringify({"error": answer.error}));
-    } 
+        if (answer.status == 200) response.end(JSON.stringify(answer.json));
+        else response.end(JSON.stringify({
+            "error": answer.error
+        }));
+    }
 }
