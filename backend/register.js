@@ -5,8 +5,6 @@ const fs = require('fs');
 function register(body, callback) {
     let answer = {}
 
-    console.log("nick: ", body.nick);
-    console.log("pass: ", body.pass);
     answer = verify_login(body.nick, body.pass)
     answer.style = 'json';
     console.log("Rans: ", answer)
@@ -25,10 +23,14 @@ function verify_login(nick, pass) {
             answer.error = "User registered with a different password";
             answer.status = 401;
         }
-        else answer.status = 200;
+        else {
+            answer.status = 200;
+            answer.json = {};
+        }
     } else {
         users[nick] = pass;
         answer.status = 200;
+        answer.json = {};
     }
 
     const json = JSON.stringify(users);
