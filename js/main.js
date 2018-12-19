@@ -52,7 +52,7 @@ window.onload = function () {
             document.getElementsByClassName("who-won")[0].style.width = "440px";
             document.getElementsByClassName("who-won")[0].style.display = "unset";
             start_spinner()
-            join(4623, nick, pass, {
+            join(5, nick, pass, {
                 'rows': Number(height),
                 'columns': Number(width)
             });
