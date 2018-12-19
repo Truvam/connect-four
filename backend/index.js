@@ -7,6 +7,7 @@ let url = require('url');
 
 const register = require('./register.js');
 const ranking = require('./ranking.js');
+const join = require('./join.js');
 
 
 
@@ -75,6 +76,17 @@ function doPost(pathname, request, callback) {
             });
             request.on('end', function () {
                 ranking.ranking(JSON.parse(json_string), function (answer) {
+                    callback(answer);
+                });
+            });
+            break;
+        case '/join':
+            json_string = '';
+            request.on('data', function (data) {
+                json_string += data;
+            });
+            request.on('end', function () {
+                join.join(JSON.parse(json_string), function (answer) {
                     callback(answer);
                 });
             });
