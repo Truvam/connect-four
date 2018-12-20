@@ -3,11 +3,11 @@
 const fs = require('fs');
 
 function ranking(body, callback) {
-    let answer = {}
+    let answer = {};
 
     if (body.hasOwnProperty('size')) {
         if (body.size.hasOwnProperty('rows') && body.size.hasOwnProperty('columns')) {
-            answer = get_ranking(body.size.rows, body.size.columns)
+            answer = get_ranking(body.size.rows, body.size.columns);
             answer.status = 200;
         }
         else {
@@ -20,17 +20,23 @@ function ranking(body, callback) {
     }
 
     answer.style = 'json';
-    console.log("RKans: ", answer)
+    console.log("RKans: ", answer);
 
     callback(answer);
 }
 module.exports.ranking = ranking;
 
 function get_ranking(rows, columns) {
-    let answer = {}
+    let answer = {};
 
-    const data = fs.readFileSync('ranking.json');
-    answer.json = JSON.parse(data);
+    try {
+        const data = fs.readFileSync('ranking/ranking' + rows + '-' + columns + '.json');
+        answer.json = JSON.parse(data);
+    } catch (error) {
+        console.log(error);
+        answer.json = {};
+    }
+    
 
     return answer;
 }
