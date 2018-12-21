@@ -1,6 +1,5 @@
 "use strict";
 
-
 const http = require('http');
 const conf = require('./conf.js');
 let url = require('url');
@@ -8,15 +7,9 @@ let url = require('url');
 const register = require('./register.js');
 const ranking = require('./ranking.js');
 const join = require('./join.js');
-
-
+const updater = require('./updater.js');
 
 const headers = {
-    plain: {
-        'Content-Type': 'application/javascript',
-        'Cache-Control': 'no-cache',
-        'Access-Control-Allow-Origin': '*'
-    },
     json: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
@@ -37,11 +30,14 @@ http.createServer(function (request, response) {
 
     switch (request.method) {
         case 'GET':
-            console.log('GET');
+            doGet(pathname, request, response, function (answer) {
+                console.log("GAns: ", answer);
+                //write_response(response, answer);
+            })
             break;
         case 'POST':
             doPost(pathname, request, function (answer) {
-                console.log("SAns: ", answer);
+                console.log("PAns: ", answer);
                 write_response(response, answer);
             });
             break;
@@ -51,6 +47,44 @@ http.createServer(function (request, response) {
     }
 
 }).listen(conf.port);
+
+
+function doGet(pathname, request, response, callback) {
+    let answer = {};
+
+    switch (pathname) {
+        case '/update':
+            let game = request.url.match('(?<=game=).*');
+            let nick = request.url.match('(?<=nick=)(.*?)(?=&)');
+            answer.style = 'sse';
+            answer.status = 200;
+
+            if (game[0].length < 32) {
+                answer.status = 400;
+                answer.error = "Invalid game reference";
+                setImmediate(() => updater.update(answer.status, headers[answer.style], {"error": answer.error}));
+            } else {
+                updater.set_game(game[0]);
+                updater.incr_players();
+
+                if (updater.get_n_players() == 1) updater.set_turn(nick[0]);
+
+                updater.remember(response);
+                request.on('close', () => updater.forget(response));
+
+                if (updater.get_n_players() > 1)
+                    setImmediate(() => updater.update(answer.status, headers[answer.style], updater.get_game_info()));
+            }
+
+
+            break;
+        default:
+            answer.status = 400;
+            break;
+    }
+
+    callback(answer);
+}
 
 
 function doPost(pathname, request, callback) {
@@ -86,7 +120,29 @@ function doPost(pathname, request, callback) {
                 json_string += data;
             });
             request.on('end', function () {
-                join.join(JSON.parse(json_string), function (answer) {
+                join.join(JSON.parse(json_string), updater.get_game_info(), function (answer) {
+                    callback(answer);
+                });
+            });
+            break;
+        case '/leave':
+            json_string = '';
+            request.on('data', function (data) {
+                json_string += data;
+            });
+            request.on('end', function () {
+                join.join(JSON.parse(json_string), update, function (answer) {
+                    callback(answer);
+                });
+            });
+            break;
+        case '/notify':
+            json_string = '';
+            request.on('data', function (data) {
+                json_string += data;
+            });
+            request.on('end', function () {
+                notify.notify(JSON.parse(json_string), update, function (answer) {
                     callback(answer);
                 });
             });
