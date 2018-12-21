@@ -8,6 +8,7 @@ const register = require('./register.js');
 const ranking = require('./ranking.js');
 const join = require('./join.js');
 const updater = require('./updater.js');
+const notify = require('./notify.js');
 
 const headers = {
     json: {
@@ -68,6 +69,7 @@ function doGet(pathname, request, response, callback) {
                 updater.incr_players();
 
                 if (updater.get_n_players() == 1) updater.set_turn(nick[0]);
+                else updater.create_board();
 
                 updater.remember(response);
                 request.on('close', () => updater.forget(response));
@@ -75,7 +77,6 @@ function doGet(pathname, request, response, callback) {
                 if (updater.get_n_players() > 1)
                     setImmediate(() => updater.update(answer.status, headers[answer.style], updater.get_game_info()));
             }
-
 
             break;
         default:
@@ -142,7 +143,7 @@ function doPost(pathname, request, callback) {
                 json_string += data;
             });
             request.on('end', function () {
-                notify.notify(JSON.parse(json_string), update, function (answer) {
+                notify.notify(JSON.parse(json_string), updater.get_game_info(), function (answer) {
                     callback(answer);
                 });
             });
