@@ -2,13 +2,14 @@
 
 const fs = require('fs');
 const crypto = require('crypto');
+//const bcrypt = require('bcrypt');
 
 function register(body, callback) {
-    let answer = {}
+    let answer = {};
 
-    answer = verify_login(body.nick, body.pass)
+    answer = verify_login(body.nick, body.pass);
     answer.style = 'json';
-    console.log("Rans: ", answer)
+    console.log("Rans: ", answer);
 
     callback(answer);
 }
@@ -23,8 +24,7 @@ function verify_login(nick, pass) {
         if (decipher(users[nick]) != pass) {
             answer.error = "User registered with a different password";
             answer.status = 401;
-        }
-        else {
+        } else {
             answer.status = 200;
             answer.json = {};
         }
@@ -37,6 +37,22 @@ function verify_login(nick, pass) {
     const json = JSON.stringify(users);
     fs.writeFileSync('passwd.json', json);
     return answer;
+}
+
+function bcrypt_cipher(value) {
+    bcrypt.hash(value, 10, function (err, crypt_pass) {
+        return crypt_pass;
+    });
+}
+
+function bcrypt_compare(hash, pass) {
+    bcrypt.compare(pass, hash, function (err, match) {
+        if (match) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 }
 
 function cipher(value) {
