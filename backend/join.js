@@ -5,7 +5,10 @@ const crypto = require('crypto');
 function join(body, game_info, callback) {
     let answer = {};
 
-    if(game_info.hasOwnProperty('game')) body.game = game_info.game;
+    if(game_info.hasOwnProperty('game')) {
+        body.game = game_info.game;
+        game_info.size = body.size;
+    }
     answer = create_hash(body);
     answer.style = 'json';
     console.log("Rans: ", answer);
