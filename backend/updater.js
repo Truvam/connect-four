@@ -29,6 +29,13 @@ module.exports.get_game_info = function() {
     return game_info;
 }
 
+module.exports.set_nicks = function(nick) {
+    if(game_info.hasOwnProperty('nick'))
+        game_info.nick[1] = nick;
+    else 
+        game_info.nick = [nick, null];
+}
+
 module.exports.incr_players = function() {
     game_info.players++;
 }
@@ -39,4 +46,12 @@ module.exports.get_n_players = function() {
 
 module.exports.set_turn = function(nick) {
     game_info.turn = nick;
+}
+
+module.exports.create_board = function() {
+    game_info.board = Array.from({
+        length: game_info.size.rows
+    }, () => Array.from({
+        length: game_info.size.columns
+    }, () => null));
 }

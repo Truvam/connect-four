@@ -38,7 +38,7 @@ http.createServer(function (request, response) {
             break;
         case 'POST':
             doPost(pathname, request, function (answer) {
-                console.log("PAns: ", answer);
+                console.log("POans: ", answer);
                 write_response(response, answer);
             });
             break;
@@ -66,6 +66,7 @@ function doGet(pathname, request, response, callback) {
                 setImmediate(() => updater.update(answer.status, headers[answer.style], {"error": answer.error}));
             } else {
                 updater.set_game(game[0]);
+                updater.set_nicks(nick[0]);
                 updater.incr_players();
 
                 if (updater.get_n_players() == 1) updater.set_turn(nick[0]);

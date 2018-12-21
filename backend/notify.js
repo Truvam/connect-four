@@ -14,6 +14,9 @@ module.exports.notify = function(body, game_info, callback) {
     else {
         answer.json = {};
         answer.status = 200;
+        game_info.column = body.column;
+        if(game_info.turn == game_info.nick[0]) game_info.turn = game_info.nick[1];
+        else game_info.turn = game_info.nick[0];
     }
 
     answer.style = 'json';
