@@ -119,17 +119,14 @@ class Board {
 }
 
 function is_draw(board) {
-    let cont = 0;
     let empty = "_";
     for (let i = 0; i < board.height; i++) {
         for (let j = 0; j < board.width; j++) {
-            if (board.matrix[i][j] != empty)
-                cont += 1;
-            if (cont == 42)
-                return true;
+            if (board.matrix[i][j] == empty)
+                return false
         }
     }
-    return false;
+    return true;
 }
 
 function find_empty_cell(column) {
