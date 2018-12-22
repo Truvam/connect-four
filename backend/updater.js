@@ -13,6 +13,9 @@ module.exports.forget = function (response) {
     let pos = responses.findIndex((resp) => resp === response);
     if (pos > -1)
         responses.splice(pos, 1);
+    delete game_info.winner;
+    delete game_info.column;
+    game_info.players = 0;
 }
 
 module.exports.update = function (status, header, data) {
@@ -22,7 +25,7 @@ module.exports.update = function (status, header, data) {
         check_winner();
     }
     for (let response of responses) {
-        if (!data.hasOwnProperty('column'))
+        if (!data.hasOwnProperty('column') && data.winner == null)
             response.writeHead(status, header);
         response.write('data: ' + JSON.stringify(data) + '\n\n');
     }

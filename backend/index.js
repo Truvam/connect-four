@@ -8,6 +8,7 @@ const register = require('./register.js');
 const ranking = require('./ranking.js');
 const join = require('./join.js');
 const updater = require('./updater.js');
+const leave = require('./leave.js');
 const notify = require('./notify.js');
 
 const headers = {
@@ -134,8 +135,9 @@ function doPost(pathname, request, callback) {
                 json_string += data;
             });
             request.on('end', function () {
-                join.join(JSON.parse(json_string), update, function (answer) {
+                leave.leave(JSON.parse(json_string), updater.get_game_info(), function (answer) {
                     callback(answer);
+                    setImmediate(() => updater.update(answer.status, headers[answer.style], answer.winner));
                 });
             });
             break;
