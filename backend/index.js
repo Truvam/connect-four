@@ -33,7 +33,6 @@ http.createServer(function (request, response) {
         case 'GET':
             doGet(pathname, request, response, function (answer) {
                 console.log("GAns: ", answer);
-                //write_response(response, answer);
             })
             break;
         case 'POST':
@@ -63,7 +62,9 @@ function doGet(pathname, request, response, callback) {
             if (game[0].length < 32) {
                 answer.status = 400;
                 answer.error = "Invalid game reference";
-                setImmediate(() => updater.update(answer.status, headers[answer.style], {"error": answer.error}));
+                setImmediate(() => updater.update(answer.status, headers[answer.style], {
+                    "error": answer.error
+                }));
             } else {
                 updater.set_game(game[0]);
                 updater.set_nicks(nick[0]);
@@ -146,6 +147,8 @@ function doPost(pathname, request, callback) {
             request.on('end', function () {
                 notify.notify(JSON.parse(json_string), updater.get_game_info(), function (answer) {
                     callback(answer);
+                    if (answer.status == 200)
+                        setImmediate(() => updater.update(answer.status, headers[answer.style], updater.get_game_info()));
                 });
             });
             break;
