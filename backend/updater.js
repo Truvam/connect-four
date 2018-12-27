@@ -1,5 +1,7 @@
 "use strict";
 
+const ranking = require('./ranking.js');
+
 let responses = [];
 let game_info = {
     "players": 0
@@ -84,6 +86,7 @@ function check_winner() {
         let winner = who_won();
         if (winner != null) {
             game_info.winner = winner;
+            ranking.insert_ranking(game_info);
             delete game_info.turn;
         }
     }
