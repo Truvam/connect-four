@@ -1,5 +1,5 @@
 online_first_player = ""
-url = "http://twserver.alunos.dcc.fc.up.pt:8008/"
+url = "http://localhost:8105/"
 game = ""
 
 function register(nick, pass) {
