@@ -55,23 +55,24 @@ function doGet(pathname, request, response, callback) {
 
     switch (pathname) {
         case '/update':
-            let game = request.url.match('(?<=game=).*');
-            let nick = request.url.match('(?<=nick=)(.*?)(?=&)');
+            const url_query = url.parse(request.url, true).query;
+            let game = url_query.game;
+            let nick = url_query.nick;
             answer.style = 'sse';
             answer.status = 200;
 
-            if (game[0].length < 32) {
+            if (game.length < 32) {
                 answer.status = 400;
                 answer.error = "Invalid game reference";
                 setImmediate(() => updater.update(answer.status, headers[answer.style], {
                     "error": answer.error
                 }));
             } else {
-                updater.set_game(game[0]);
-                updater.set_nicks(nick[0]);
+                updater.set_game(game);
+                updater.set_nicks(nick);
                 updater.incr_players();
 
-                if (updater.get_n_players() == 1) updater.set_turn(nick[0]);
+                if (updater.get_n_players() == 1) updater.set_turn(nick);
                 else updater.create_board();
 
                 updater.remember(response);
