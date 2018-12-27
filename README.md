@@ -1,17 +1,28 @@
 [![python](https://img.shields.io/badge/python-3.5-blue.svg)](https://www.python.org/downloads/)
+[![node](https://img.shields.io/badge/node-%3E%3D%206.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/)
 
 # Connect Four
 ## Web:
 ```
 Visit: https://truvam.github.io/connect-four/
 ```
+#### OR
+```
+$ git clone https://github.com/Truvam/connect-four.git
+$ cd connect-four/
+(Make sure you have all dependencies listed above installed)
+$ node static_server.js
+$ node backend/index.js
+Visit: http://localhost:8080/
+```
 ------
 ## Python:
 ## Installation:
 ```
 Version: Python 3.5.2
-$ git clone https://github.com/Truvam/IA.git
-$ cd IA/ConnectFour/
+$ git clone $ https://github.com/Truvam/connect-four.git
+$ cd connect-four/
 ```
 ## Example:
 ### `Input:`
