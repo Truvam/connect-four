@@ -1,3 +1,5 @@
+const ranking = require('./ranking.js');
+
 module.exports.leave = function (body, game_info, callback) {
     let answer = {};
 
@@ -8,6 +10,8 @@ module.exports.leave = function (body, game_info, callback) {
     else {
         if(body.nick == game_info.nick[0]) answer.winner = {"winner": game_info.nick[1]};
         else answer.winner = {"winner": game_info.nick[0]};
+        game_info.winner = answer.winner.winner;
+        ranking.insert_ranking(game_info);
         answer.style = 'json';
     }
 
