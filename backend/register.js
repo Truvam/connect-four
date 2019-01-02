@@ -40,7 +40,7 @@ function verify_login(nick, pass) {
         }
 
         const json = JSON.stringify(users);
-        fs.writeFileSync(__dirname + 'passwd.json', json);
+        fs.writeFileSync(__dirname + '/passwd.json', json);
     } catch (error) {
         answer.status = 500;
         answer.error = 'Unable to register user';
