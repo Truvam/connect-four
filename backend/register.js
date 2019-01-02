@@ -7,7 +7,12 @@ const crypto = require('crypto');
 function register(body, callback) {
     let answer = {};
 
-    answer = verify_login(body.nick, body.pass);
+    if (body.nick != '' && body.pass != '')
+        answer = verify_login(body.nick, body.pass);
+    else {
+        answer.error = "Empty username or password";
+        answer.status = 401;
+    }
     answer.style = 'json';
     console.log("Rans: ", answer);
 
@@ -17,25 +22,30 @@ module.exports.register = register;
 
 function verify_login(nick, pass) {
     let answer = {}
-
-    const data = fs.readFileSync('passwd.json');
-    let users = JSON.parse(data);
-    if (users.hasOwnProperty(nick)) {
-        if (decipher(users[nick]) != pass) {
-            answer.error = "User registered with a different password";
-            answer.status = 401;
+    try {
+        const data = fs.readFileSync('passwd.json');
+        let users = JSON.parse(data);
+        if (users.hasOwnProperty(nick)) {
+            if (decipher(users[nick]) != pass) {
+                answer.error = "User registered with a different password";
+                answer.status = 401;
+            } else {
+                answer.status = 200;
+                answer.json = {};
+            }
         } else {
+            users[nick] = cipher(pass);
             answer.status = 200;
             answer.json = {};
         }
-    } else {
-        users[nick] = cipher(pass);
-        answer.status = 200;
-        answer.json = {};
+
+        const json = JSON.stringify(users);
+        fs.writeFileSync('passwd.json', json);
+    } catch (error) {
+        answer.status = 500;
+        answer.error = error;
     }
 
-    const json = JSON.stringify(users);
-    fs.writeFileSync('passwd.json', json);
     return answer;
 }
 
