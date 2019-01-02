@@ -43,7 +43,7 @@ function verify_login(nick, pass) {
         fs.writeFileSync('passwd.json', json);
     } catch (error) {
         answer.status = 500;
-        answer.error = error;
+        answer.error = 'Unable to register user';
     }
 
     return answer;
