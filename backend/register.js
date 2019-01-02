@@ -23,7 +23,7 @@ module.exports.register = register;
 function verify_login(nick, pass) {
     let answer = {}
     try {
-        const data = fs.readFileSync('passwd.json');
+        const data = fs.readFileSync(__dirname + '/passwd.json');
         let users = JSON.parse(data);
         if (users.hasOwnProperty(nick)) {
             if (decipher(users[nick]) != pass) {
@@ -40,7 +40,7 @@ function verify_login(nick, pass) {
         }
 
         const json = JSON.stringify(users);
-        fs.writeFileSync('passwd.json', json);
+        fs.writeFileSync(__dirname + 'passwd.json', json);
     } catch (error) {
         answer.status = 500;
         answer.error = 'Unable to register user';

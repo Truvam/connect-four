@@ -36,7 +36,7 @@ module.exports.insert_ranking = function (game_info) {
     let player2 = {};
 
     try {
-        let data = fs.readFileSync('ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json');
+        let data = fs.readFileSync(__dirname + '/ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json');
         data = JSON.parse(data);
 
         player = find_player(data, game_info.nick[0]);
@@ -64,13 +64,13 @@ module.exports.insert_ranking = function (game_info) {
         }
 
         json = JSON.stringify(data);
-        fs.writeFileSync('ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', json);
+        fs.writeFileSync(__dirname + '/ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', json);
     } catch (error) {
         console.log(error)
-        fs.writeFileSync('ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', JSON.stringify({
+        fs.writeFileSync(__dirname + '/ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', JSON.stringify({
             "ranking": []
         }));
-        let data = fs.readFileSync('ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json');
+        let data = fs.readFileSync(__dirname + '/ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json');
         data = JSON.parse(data);
 
         player.nick = game_info.nick[0];
@@ -86,7 +86,7 @@ module.exports.insert_ranking = function (game_info) {
         data.ranking.push(player2);
 
         json = JSON.stringify(data);
-        fs.writeFileSync('ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', json);
+        fs.writeFileSync(__dirname + '/ranking/ranking' + game_info.size.rows + '-' + game_info.size.columns + '.json', json);
     }
 }
 
@@ -94,7 +94,7 @@ function get_ranking(rows, columns) {
     let answer = {};
 
     try {
-        const data = fs.readFileSync('ranking/ranking' + rows + '-' + columns + '.json');
+        const data = fs.readFileSync(__dirname + '/ranking/ranking' + rows + '-' + columns + '.json');
         answer.json = JSON.parse(data);
     } catch (error) {
         console.log(error);
